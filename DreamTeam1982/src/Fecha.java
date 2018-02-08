@@ -86,7 +86,6 @@ public class Fecha {
 
 	// Metodo imprime fecha
 	public void imprimeFecha (int dia, int mes, int año) {
-		
 		// Mostramos la fecha
 		System.out.println("Fecha: " + dia + "/" + mes + "/" + año + "/");
 	}
