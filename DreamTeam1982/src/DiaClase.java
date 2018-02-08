@@ -1,4 +1,4 @@
 
-public class DiaClase {
+public class Dia_Clase {
 
 }
