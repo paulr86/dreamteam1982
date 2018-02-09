@@ -85,9 +85,9 @@ public class Fecha {
 	}
 
 	// Metodo imprime fecha
-	public void imprimeFecha (int dia, int mes, int año) {
+	public void imprimeFecha (Fecha fecha) {
 		// Mostramos la fecha
-		System.out.println("Fecha: " + dia + "/" + mes + "/" + año + "/");
+		System.out.println("Fecha: " + fecha.getDia() + "/" + fecha.getMes() + "/" + fecha.getAgno() + "/");
 	}
 	
 	// Sobrecarga del método equals de la clase Object
