@@ -3,6 +3,8 @@ import java.util.*;
 
 public class DiaClase {
 	
+	// Autor: Álvaro Moya Pino
+	
 	// Atributos de la clase
 	
 	private Fecha dia;

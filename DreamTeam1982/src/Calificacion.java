@@ -1,5 +1,5 @@
 
-public class Calificacion {
+public class Calificacion { // Autor: Antonio Megías
 	
 	//ATRIBUTOS
 	private String asignatura;
