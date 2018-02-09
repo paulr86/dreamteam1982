@@ -1,4 +1,4 @@
-
+// Autor: David Guindo
 public class Fecha {
 
 	private int dia = 0;
