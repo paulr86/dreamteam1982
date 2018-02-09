@@ -3,7 +3,7 @@ import java.util.*;
 
 public class DiaClase {
 	
-	// Autor: Álvaro Moya Pino
+	// Autor: Alvaro Moya Pino
 	
 	// Atributos de la clase
 	
@@ -23,15 +23,15 @@ public class DiaClase {
 		return dia;
 	}
 	
-	public Horario getSesiones() {
-		return sesiones;
-	}
+//	public Horario getSesiones() {    HASTA QUE IGNACIO LO SUBA
+//		return sesiones;
+//	}
 	
 	public void setDia(Fecha dia) {
 		this.dia = dia;
 	}
 	
-	// Sobrecarga del método equals de la clase Object
+	// Sobrecarga del metodo equals de la clase Object
 	
 	public boolean equals(Object object){
 		boolean igual = false;

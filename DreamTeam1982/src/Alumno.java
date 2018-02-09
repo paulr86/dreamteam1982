@@ -1,6 +1,8 @@
 
 import java.util.*;
 
+//RUBEN TIJERAS
+
 public class Alumno {
 
 	private String dni;
