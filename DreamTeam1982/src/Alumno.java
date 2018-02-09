@@ -25,6 +25,9 @@ public class Alumno {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.faltas = new ArrayList<DiaClase>();
+		this.notas = new ArrayList<Calificacion>();
+
 	}
 
 	//// GETTER SETTER ////
