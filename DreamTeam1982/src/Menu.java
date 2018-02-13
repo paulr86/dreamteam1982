@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Menu { // Autor: Pablo Romero Ruiz
 
-	public static void MostrarMenu() {
+	public static void MostrarMenu() { 		// Autor: Pablo Romero Ruiz
 		
 
 		System.out.println("GESTION DE ALUMNOS. Menu:" + "\n1- Dar de alta alumnos" + "\n2- Dar de baja alumnos"
@@ -13,7 +13,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				+ "\n13- Salir");
 	}
 	
-	public static boolean RepetirOpcion() {
+	public static boolean RepetirOpcion() {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner (System.in);
 		boolean repetir = false;
 		
@@ -26,7 +26,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static void DarAlta(ArrayList<Alumno> lista) {
+	public static void DarAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		
 		Alumno alumno = new Alumno();
@@ -45,7 +45,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		}
 	}
 	
-	public static boolean ExisteAlumno(Alumno alumno, ArrayList<Alumno> lista) {
+	public static boolean ExisteAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
 		Iterator <Alumno> iterador = lista.iterator();
 		boolean existe = false;
 		

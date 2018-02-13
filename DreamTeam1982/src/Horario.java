@@ -27,9 +27,32 @@ public class Horario {
 //faltaHora (int sesion)
 
 		public void faltaHora (int sesion) {
-			sesiones[sesion - 1] = 'F';
 			
+			try {
+				sesiones[sesion - 1] = 'F';
+			}
+			catch(IndexOutOfBoundsException ex){
+				System.out.println("Solo hay sesiones enumeradas de 1 a 6");
+			}
 			
 		// de 1 a 6 hora 
 	}
+		public String imprimeHorario() {
+			
+			String horario = "";
+			
+			for (int n = 0; n < 6; n++) {
+				
+				horario = horario + sesiones[n];
+				
+				if( n!=5)
+					horario = horario +"/";
+				
+			}
+			
+			return horario;
+		}
+		
+		
+		
 }
