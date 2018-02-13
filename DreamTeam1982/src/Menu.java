@@ -29,16 +29,22 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	public static void DarAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		
-		Alumno alumno = new Alumno();
+		String dni;
+		String nombre;
+		String apellidos;
+		
+
 		
 		System.out.println("Introduce el nombre del alumno:");
-//		alumno.setNombre(entrada.next());
+		nombre = entrada.next();
 		
 		System.out.println("Introduce los apellidos:");
-//		alumno.setApellidos(entrada.next());
+		apellidos = entrada.next();
 		
 		System.out.println("Introduce el dni:");
-//		alumno.setDni(entrada.next());
+		dni = entrada.next();
+		
+		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
 		if(!ExisteAlumno(alumno, lista)){
 			lista.add(alumno);
@@ -49,13 +55,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		Iterator <Alumno> iterador = lista.iterator();
 		boolean existe = false;
 		
-//		Clase alumno. Pablo
-		
-//		while(iterador.hasNext() && !existe){
-//			if(alumno.getDni() == iterador.next().getDni()){
-//				existe = true;
-//			}
-//		}
+		while(iterador.hasNext() && !existe){
+			if(alumno.getDni() == iterador.next().getDni()){
+				existe = true;
+			}
+		}
 		
 		return existe;
 	}
