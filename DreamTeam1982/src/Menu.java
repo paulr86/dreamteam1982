@@ -16,9 +16,14 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	public static boolean RepetirOpcion() {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner (System.in);
 		boolean repetir = false;
+		char opc; 
+		
 		
 		System.out.println("¿Quieres repetir la operación? Y/N:");
-		if(entrada.next().charAt(0) == 'Y'){
+		opc = Character.toUpperCase(entrada.next().charAt(0));
+		//	Método estático para pasar un carácter a mayúsculas, ya que
+		//	el usuario va a introducir o mayúsculas o minúsculas.
+		if(opc == 'Y'){
 			repetir = true;
 		}
 		
@@ -43,13 +48,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		String apellidos;
 		
 		System.out.println("Introduce el nombre del alumno:");
-		nombre = entrada.next();
+		nombre = entrada.nextLine();
 		
 		System.out.println("Introduce los apellidos:");
-		apellidos = entrada.next();
+		apellidos = entrada.nextLine();
 		
 		System.out.println("Introduce el dni:");
-		dni = entrada.next();
+		dni = entrada.nextLine();
 		
 		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
@@ -57,6 +62,26 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			lista.add(alumno);
 			resultado = true;
 		}
+		
+		return resultado;
+	}
+	
+	public static boolean DarBaja(ArrayList<Alumno> lista){
+		Scanner entrada = new Scanner(System.in);
+		boolean resultado = false;
+		String dni;
+		
+		
+		System.out.println("Introduce el DNI del alumno a eliminar:");
+		dni = entrada.next();
+		
+		if(lista.remove(BuscarAlumno(lista,dni)) == lista.get(BuscarAlumno(lista, dni))){
+			//		Condición del if: la función remove de java devuelve aquello que elimina si
+			//		lo ha eliminado correctamente. Así que para comprobar si se ha eliminado el alumno
+			//		comparamos el metodo con el alumno a borrar (objeto alumno, no acepta otra cosa).
+			resultado = true;
+		}
+		
 		
 		return resultado;
 	}
@@ -101,7 +126,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			MostrarMenu();
 			opcion = entrada.nextInt();
 			
-			entrada.next(); //LIMPIANDO BUFFER
+			entrada.nextLine(); //LIMPIANDO BUFFER
 			
 			switch (opcion) {
 			case 1:// Autor: Pablo Romero Ruiz
@@ -115,7 +140,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				break;
 			case 2:// Autor: Pablo Romero Ruiz
 				do{
-					
+					if(DarBaja(alumnos)){
+						System.out.println("Alumno eliminado correctamente.");
+					}else{
+						System.out.println("Error al eliminar alumno");
+					}
 					
 				}while(RepetirOpcion());
 				break;
