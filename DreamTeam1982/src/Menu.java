@@ -73,6 +73,22 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		return existe;
 	}
+	
+	
+	
+	public static boolean HayAlumnos(ArrayList<Alumno> lista) {//Autor Antonio MEgias
+		boolean hay = false;
+		if(lista.size()!=0) {
+			hay = true;
+		}else {
+			hay = false;
+		}
+		return hay;
+	}
+	
+	public static void ListarAlumnos(ArrayList<Alumno>lista) {
+		Iterator <Alumno> listador = lista.iterator();
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -104,9 +120,16 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				}while(RepetirOpcion());
 				break;
 			case 3:
-				//NO REPETIR
+				if(Menu.HayAlumnos(alumnos)== true) {
+					System.out.println("Existen alumnos");
+					
+				}else {
+					System.out.println("No hay alumnos");
+				}
+				//NO REPETIR //AUTOR ANTONIO MEGIAS
+		
 				break;
-			case 4:
+			case 4://AUTOR ANTONIO MEGIAS
 				do{
 					
 					
