@@ -26,14 +26,21 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static void DarAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
+	public static int BuscarAlumno(ArrayList<Alumno> lista, String dni){
+		int posicion;
+		
+		posicion = lista.indexOf(dni);
+		
+		return posicion;
+	}
+	
+	public static boolean DarAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		
+		boolean resultado = false;
 		String dni;
 		String nombre;
 		String apellidos;
-		
-
 		
 		System.out.println("Introduce el nombre del alumno:");
 		nombre = entrada.next();
@@ -48,7 +55,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		if(!ExisteAlumno(alumno, lista)){
 			lista.add(alumno);
+			resultado = true;
 		}
+		
+		return resultado;
 	}
 	
 	public static boolean ExisteAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
@@ -74,15 +84,20 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		do {
 			MostrarMenu();
 			opcion = entrada.nextInt();
-
+			
+			entrada.next(); //LIMPIANDO BUFFER
+			
 			switch (opcion) {
-			case 1:
+			case 1:// Autor: Pablo Romero Ruiz
 				do{
-					
-					
+					if(DarAlta(alumnos)){
+						System.out.println("Alumno introducido correctamente.");
+					}else{
+						System.out.println("No se ha introducido correctamente.");
+					}
 				}while(RepetirOpcion());
 				break;
-			case 2:
+			case 2:// Autor: Pablo Romero Ruiz
 				do{
 					
 					
