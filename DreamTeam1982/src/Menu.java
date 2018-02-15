@@ -120,8 +120,12 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return hay;
 	}
 	
-	public static void listarAlumnos(ArrayList<Alumno>lista) {
-		Iterator <Alumno> listador = lista.iterator();
+	public static void listarAlumnos(ArrayList<Alumno>lista) { //Autor: Antonio Megias
+		
+		for(int i=0; i<lista.size(); i++) {
+			System.out.println("Alumno: " + lista.get(i).getNombre() + " " + lista.get(i).getApellidos());
+		}
+		
 	}
 	
 	public static void introducirCalificacion(ArrayList<Alumno>lista) {		//Rubén Tijeras
@@ -175,7 +179,14 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	
+	public static void modificarAlumnos(Alumno alumno,ArrayList<Alumno>lista) {
+		Scanner entrada = new Scanner(System.in);
+		String escaner;
+//		System.out.println("Alumno a modificar: ");
+//		escaner = entrada.nextLine();
+		existeAlumno(alumno, lista);
+		
+	}
 	
 
 	public static void main(String[] args) {
@@ -212,9 +223,8 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				}while(repetirOpcion());
 				break;
 			case 3:
-				if(Menu.hayAlumnos(alumnos)== true) {
-					System.out.println("Existen alumnos");
-					
+				if(hayAlumnos(alumnos)== true) {
+					listarAlumnos(alumnos);
 				}else {
 					System.out.println("No hay alumnos");
 				}
