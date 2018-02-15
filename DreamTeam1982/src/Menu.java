@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Menu { // Autor: Pablo Romero Ruiz
 
-	public static void MostrarMenu() { 		// Autor: Pablo Romero Ruiz
+	public static void mostrarMenu() { 		// Autor: Pablo Romero Ruiz
 		
 
 		System.out.println("GESTION DE ALUMNOS. Menu:" + "\n1- Dar de alta alumnos" + "\n2- Dar de baja alumnos"
@@ -13,7 +13,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				+ "\n13- Salir");
 	}
 	
-	public static boolean RepetirOpcion() {		// Autor: Pablo Romero Ruiz
+	public static boolean repetirOpcion() {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner (System.in);
 		boolean repetir = false;
 		char opc; 
@@ -31,15 +31,25 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static int BuscarAlumno(ArrayList<Alumno> lista, String dni){
-		int posicion;
+	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){
+		int posicion = -1;
+		boolean terminado = false;
+//		Iterator <Alumno> iterador = lista.iterator(); 
+
+//		while(iterador.hasNext()){
+//			System.out.println(iterador.next().getDni());
+//		}
 		
-		posicion = lista.indexOf(dni);
+		for(int i = 0; i<lista.size() && !terminado; i++){
+			if(lista.get(i).getDni().equals(dni)){
+				posicion = i;
+			}
+		}
 		
 		return posicion;
 	}
 	
-	public static boolean DarAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
+	public static boolean darAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		
 		boolean resultado = false;
@@ -56,9 +66,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introduce el dni:");
 		dni = entrada.nextLine();
 		
+		dni = dni.trim();
+		
 		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
-		if(!ExisteAlumno(alumno, lista)){
+		if(!existeAlumno(alumno, lista)){
 			lista.add(alumno);
 			resultado = true;
 		}
@@ -66,7 +78,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return resultado;
 	}
 	
-	public static boolean DarBaja(ArrayList<Alumno> lista){
+	public static boolean darBaja(ArrayList<Alumno> lista){
 		Scanner entrada = new Scanner(System.in);
 		boolean resultado = false;
 		String dni;
@@ -75,18 +87,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introduce el DNI del alumno a eliminar:");
 		dni = entrada.next();
 		
-		if(lista.remove(BuscarAlumno(lista,dni)) == lista.get(BuscarAlumno(lista, dni))){
-			//		Condición del if: la función remove de java devuelve aquello que elimina si
-			//		lo ha eliminado correctamente. Así que para comprobar si se ha eliminado el alumno
-			//		comparamos el metodo con el alumno a borrar (objeto alumno, no acepta otra cosa).
+		if(buscarAlumno(lista,dni) != -1){
+			lista.remove(buscarAlumno(lista,dni));
 			resultado = true;
 		}
-		
 		
 		return resultado;
 	}
 	
-	public static boolean ExisteAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
+	public static boolean existeAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
 		Iterator <Alumno> iterador = lista.iterator();
 		boolean existe = false;
 		
@@ -101,7 +110,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	
 	
 	
-	public static boolean HayAlumnos(ArrayList<Alumno> lista) {//Autor Antonio MEgias
+	public static boolean hayAlumnos(ArrayList<Alumno> lista) {//Autor Antonio MEgias
 		boolean hay = false;
 		if(lista.size()!=0) {
 			hay = true;
@@ -111,7 +120,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return hay;
 	}
 	
-	public static void ListarAlumnos(ArrayList<Alumno>lista) {
+	public static void listarAlumnos(ArrayList<Alumno>lista) {
 		Iterator <Alumno> listador = lista.iterator();
 	}
 
@@ -123,7 +132,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		int opcion;
 
 		do {
-			MostrarMenu();
+			mostrarMenu();
 			opcion = entrada.nextInt();
 			
 			entrada.nextLine(); //LIMPIANDO BUFFER
@@ -131,25 +140,25 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			switch (opcion) {
 			case 1:// Autor: Pablo Romero Ruiz
 				do{
-					if(DarAlta(alumnos)){
+					if(darAlta(alumnos)){
 						System.out.println("Alumno introducido correctamente.");
 					}else{
 						System.out.println("No se ha introducido correctamente.");
 					}
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 2:// Autor: Pablo Romero Ruiz
 				do{
-					if(DarBaja(alumnos)){
+					if(darBaja(alumnos)){
 						System.out.println("Alumno eliminado correctamente.");
 					}else{
 						System.out.println("Error al eliminar alumno");
 					}
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 3:
-				if(Menu.HayAlumnos(alumnos)== true) {
+				if(Menu.hayAlumnos(alumnos)== true) {
 					System.out.println("Existen alumnos");
 					
 				}else {
@@ -162,44 +171,44 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 				
 			case 5:
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 6:
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 7:
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 8:
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 9:
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 10:
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 11:
 				//NO REPETIR
@@ -208,7 +217,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				do{
 					
 					
-				}while(RepetirOpcion());
+				}while(repetirOpcion());
 				break;
 			case 13:
 				//NO REPETIR
