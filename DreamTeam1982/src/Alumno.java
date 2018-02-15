@@ -79,6 +79,13 @@ public class Alumno {
 	public ArrayList<Calificacion> getNotas() {
 		return notas;
 	}
+	
+	public void ponerNotas(String calificacion, String asignatura) {
+		
+		Calificacion calif = new Calificacion(asignatura); //Creamos un objeto calificacion para introducir sus notas
+		calif.setNota(calificacion);	//Establecemos la nota
+		this.notas.add(calif);	//Añadimos la calificacion
+	}
 
 	public boolean equals(Object object) {
 		boolean igual = false;

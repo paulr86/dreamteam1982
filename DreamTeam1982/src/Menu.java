@@ -31,7 +31,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){
+	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Pablo
 		int posicion = -1;
 		boolean terminado = false;
 //		Iterator <Alumno> iterador = lista.iterator(); 
@@ -123,6 +123,60 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	public static void listarAlumnos(ArrayList<Alumno>lista) {
 		Iterator <Alumno> listador = lista.iterator();
 	}
+	
+	public static void introducirCalificacion(ArrayList<Alumno>lista) {		//Rubén Tijeras
+		int posicion;
+		String dni, nota, asignatura;
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Introducir el dni del alumno que quiere calificar");
+		dni = entrada.next();		//Pedimos dni
+		entrada.nextLine(); 		//Limpiando buffer
+		
+		System.out.println("Introducir la nota del alumno");
+		nota = entrada.next();		//Pedimos nota
+		entrada.nextLine(); 		//Limpiando buffer
+		
+		System.out.println("Introducir la asignatura de dicha nota");
+		asignatura = entrada.next();		//Pedimos asignatura
+		entrada.nextLine(); 		//Limpiando buffer
+		
+		posicion = buscarAlumno(lista, dni);	//Conseguimos la posicion con el metodo buscarAlumno
+		
+		lista.get(posicion).ponerNotas(nota, asignatura);	//Sacamos el alumno y le ponemos la nota
+		
+		System.out.println(lista.get(posicion).getNotas());
+		
+		
+	}
+	
+	public static void pasarLista(ArrayList<Alumno>lista) {		//Rubén Tijeras
+		Scanner entrada = new Scanner ( System.in);
+		String respuesta;
+		
+		System.out.println("¿De qué sesión va a pasar lista?");
+		int sesion = entrada.nextInt();
+		
+		System.out.println("Introducir dia");
+		int dia = entrada.nextInt();
+		
+		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no");
+		
+		for(int n = 0; n < lista.size()-1; n++) {
+			
+			System.out.println(lista.get(n).getNombre()+" "+lista.get(n).getApellidos());
+			respuesta = entrada.nextLine();
+			
+			if(respuesta.equals("Y")) {
+				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
+			}
+			
+		}
+		
+	}
+	
+	
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -186,9 +240,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 					
 				}while(repetirOpcion());
 				break;
-			case 7:
+			case 7:	//Rubén Tijeras
 				do{
 					
+					introducirCalificacion(alumnos);
 					
 				}while(repetirOpcion());
 				break;
@@ -210,7 +265,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 					
 				}while(repetirOpcion());
 				break;
-			case 11:
+			case 11:	//Rubén Tijeras
+				
+				pasarLista(alumnos);
+				
 				//NO REPETIR
 				break;
 			case 12:

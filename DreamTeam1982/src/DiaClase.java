@@ -23,9 +23,9 @@ public class DiaClase {
 		return dia;
 	}
 	
-//	public Horario getSesiones() {    HASTA QUE IGNACIO LO SUBA
-//		return sesiones;
-//	}
+	public ArrayList<Horario> getSesiones() {    
+		return sesiones;
+	}
 	
 	public void setDia(Fecha dia) {
 		this.dia = dia;
