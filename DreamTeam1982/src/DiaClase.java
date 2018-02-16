@@ -1,6 +1,9 @@
-package gestionAlumnos_ProyectoGrupal;
+
+import java.util.*;
 
 public class DiaClase {
+	
+	// Autor: Alvaro Moya Pino
 	
 	// Atributos de la clase
 	
@@ -20,7 +23,7 @@ public class DiaClase {
 		return dia;
 	}
 	
-	public Horario getSesiones() {
+	public ArrayList<Horario> getSesiones() {    
 		return sesiones;
 	}
 	
@@ -28,7 +31,7 @@ public class DiaClase {
 		this.dia = dia;
 	}
 	
-	// Sobrecarga del método equals de la clase Object
+	// Sobrecarga del metodo equals de la clase Object
 	
 	public boolean equals(Object object){
 		boolean igual = false;
