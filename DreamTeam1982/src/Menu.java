@@ -128,7 +128,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		for(int i=0; i<lista.size(); i++) {
 			System.out.println("Alumno: " + lista.get(i).getNombre() + " " + lista.get(i).getApellidos());
-		}
+		}//Bucle que muestra tyoda la informacion a la vez que recorre la lista
 		
 	}
 	
@@ -198,35 +198,35 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introduce DNI del alumno a modificar: ");
 		dni = entrada.nextLine();
 		
-		posicion = buscarAlumno(lista, dni);
+		posicion = buscarAlumno(lista, dni);  //indica posicion del alumno del que posteriormente se va amodificar
 		
-		if (Menu.existeAlumno(dni,lista)== true) {
+		if (Menu.existeAlumno(dni,lista)== true) {		//Menú para elegir lo que quieres modificar y modificarlo.
 			do {System.out.println("1 para Nombre"+"\n"+"2 para Apellidos"+"\n"+"3 para DNI"+"\n"+"4 para Telefono"+"\n"+"5 para e-mail"+"\n"+"6 SALIR");
 				menu=entrada.nextInt();
 				switch(menu) {
 				case 1:
-					System.out.println("Nuevo nombre: ");
+					System.out.println("Nuevo nombre: ");		//Nombre
 					lista.get(posicion).setNombre(entrada.nextLine());
 					break;
 					
 				case 2:
-					System.out.println("Nuevo apellido: ");
+					System.out.println("Nuevo apellido: ");		//Apellido
 					lista.get(posicion).setApellidos(entrada.nextLine());
 				    break;
 				    
 				    
 				case 3:
-					System.out.println("Nuevo DNI: ");
+					System.out.println("Nuevo DNI: "); //DNI
 					lista.get(posicion).setDni(entrada.nextLine());
 					break;
 					
 				case 4:
-					System.out.println("Nuevo Telefono: ");
+					System.out.println("Nuevo Telefono: "); //TELEFONO
 					lista.get(posicion).setTelefono(entrada.nextLine());
 					break;
 					
 				case 5:
-					System.out.println("Nuevo E-mail: ");
+					System.out.println("Nuevo E-mail: ");//Email
 					lista.get(posicion).setEmail(entrada.nextLine());
 					break;
 					
@@ -268,7 +268,31 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 	}
 
+	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
+Scanner entrada = new Scanner (System.in);
+		
+		
+		System.out.println("DNI del alumno");		
+		String dni = entrada.nextLine();
 
+		if(existeAlumno(dni, lista) == true) {
+		
+		System.out.println("¿Qué día ha faltado el alumno?");		
+		int dia = entrada.nextInt();
+		
+		for (int n = 0; n<6 ; n ++) {
+		
+		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(n).faltaHora(n);			}
+		
+		}
+		else {
+			System.out.println("No existe alumno");
+		}
+
+
+	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -314,6 +338,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			case 4://AUTOR ANTONIO MEGIAS
 				do{
 					
+					modificarAlumno(alumnos);
 					
 				}while(repetirOpcion());
 				break;
