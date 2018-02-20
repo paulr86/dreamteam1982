@@ -68,7 +68,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
-		if(!existeAlumno(alumno, lista)){ //Comprobamos que no existe el alumno antes de introducirlo.
+		if(!existeAlumno(alumno.getDni(), lista)){ //Comprobamos que no existe el alumno antes de introducirlo.
 			lista.add(alumno);//Lo introducimos en el arraylist.
 			resultado = true;//Cambiamos la variable boolean para devolver que ha funcionado el metodo.
 		}
@@ -99,17 +99,17 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return resultado;// Devolvemos el boolean para informar si ha funcionado o no.
 	}
 	
-	public static boolean existeAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
-		Iterator <Alumno> iterador = lista.iterator(); //Iterador para recorrer el ArrayList.
-		boolean existe = false; //Variable boolean para informar del funcionamiento del metodo.
+	public static boolean existeAlumno(String dni, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
+		boolean existe = false;
 		
-		while(iterador.hasNext() && !existe){ //Mientras haya alumnos en el ArrayList, y no haya terminado la busqueda, va a seguir.
-			if(alumno.getDni() == iterador.next().getDni()){ //Si coiniciden el dni del alumno que le hemos pasado, y el dni del ArrayList
-				existe = true; //Pasa a verdadero el boolean
+		for(int i=0; i<lista.size() && !existe; i++){ //Recorre el ArrayList mientras que el alumno no se haya encontrado.
+			
+			if(lista.get(i).getDni().equals(dni)){// Si el dni del alumno que esta siendo recorrido es igual al dni que le hemos pasado
+				existe = true; // Se deposita en una variable boolean.
 			}
 		}
 		
-		return existe; //Y se devuelve.
+		return existe;// Se devuelve la variable boolean.
 	}
 	
 	
@@ -188,7 +188,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		String escaner;
 //		System.out.println("Alumno a modificar: ");
 //		escaner = entrada.nextLine();
-		existeAlumno(alumno, lista);
+		existeAlumno(alumno.getDni(), lista);
 		
 	}
 	
