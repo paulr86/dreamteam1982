@@ -179,6 +179,16 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
+	public static void modificarAlumno(Alumno alumno,ArrayList<Alumno>lista) {//Autor Antonio Megias 
+		Scanner entrada = new Scanner ( System.in);
+		String dni;
+		System.out.println("Introduce DNI del alumno a modificar: ");
+		dni = entrada.nextLine();
+		if (Menu.existeAlumno(alumno,lista)== true) {
+			
+		}
+	}
+	
 	public static void modificarAlumnos(Alumno alumno,ArrayList<Alumno>lista) {
 		Scanner entrada = new Scanner(System.in);
 		String escaner;
