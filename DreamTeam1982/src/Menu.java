@@ -96,14 +96,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	}
 	
 	public static boolean existeAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
-		Iterator <Alumno> iterador = lista.iterator();
-		boolean existe = false;
-		
-		while(iterador.hasNext() && !existe){
-			if(alumno.getDni() == iterador.next().getDni()){
-				existe = true;
-			}
-		}
 		
 		return existe;
 	}
@@ -154,15 +146,18 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner ( System.in);
 		String respuesta;
 		
-		System.out.println("¿De qué sesión va a pasar lista?");
+		if(hayAlumnos(lista)==true) {
+		
+		System.out.println("¿De qué sesión va a pasar lista?");		//Introducir la sesion
 		int sesion = entrada.nextInt();
 		
-		System.out.println("Introducir dia");
+		System.out.println("Introducir dia");		//Dia de la sesion
 		int dia = entrada.nextInt();
 		
-		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no");
+		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no");	//
+		respuesta = entrada.nextLine();
 		
-		for(int n = 0; n < lista.size()-1; n++) {
+		for(int n = 0; n < lista.size()-1; n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
 			
 			System.out.println(lista.get(n).getNombre()+" "+lista.get(n).getApellidos());
 			respuesta = entrada.nextLine();
@@ -172,10 +167,29 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			}
 			
 		}
+	
+		}
 		
+		else
+			System.out.println("Aún no se han introducido alumnos");
 	}
 	
-	
+	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
+		Scanner entrada = new Scanner (System.in);
+		
+		
+		System.out.println("DNI del alumno");		//Pide el dni para localizar al alumno
+		String dni = entrada.nextLine();
+
+		
+		System.out.println("¿Qué día ha faltado el alumno?");		//Pide dia para colocar la falta
+		int dia = entrada.nextInt();
+		
+		System.out.println("¿En qué sesión se ausentó el alumno?");		//Pide la sesión 
+		int sesion = entrada.nextInt();
+		
+		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);		//Coloca la falta
+	}
 	
 
 	public static void main(String[] args) {
