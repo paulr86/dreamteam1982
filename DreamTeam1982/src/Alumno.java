@@ -53,6 +53,7 @@ public class Alumno {
 	}
 
 	public void setApellidos(String apellidos) {
+
 		this.apellidos = apellidos;
 	}
 

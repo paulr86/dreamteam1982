@@ -112,8 +112,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return existe;// Se devuelve la variable boolean.
 	}
 	
-	
-	
 	public static boolean hayAlumnos(ArrayList<Alumno> lista) {//Autor Antonio MEgias
 		boolean hay = false;
 		if(lista.size()!=0) {
@@ -128,7 +126,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		for(int i=0; i<lista.size(); i++) {
 			System.out.println("Alumno: " + lista.get(i).getNombre() + " " + lista.get(i).getApellidos());
-		}
+		}//Bucle que muestra tyoda la informacion a la vez que recorre la lista
 		
 	}
 	
@@ -170,15 +168,23 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introducir dia");		//Dia de la sesion
 		int dia = entrada.nextInt();
 		
-		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no");	//
+		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no "
+				+ "");	//
 		respuesta = entrada.nextLine();
 		
-		for(int n = 0; n < lista.size()-1; n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
+
+		for(int n = 0; n < lista.size(); n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
 			
-			System.out.println(lista.get(n).getNombre()+" "+lista.get(n).getApellidos());
+
+			
+			System.out.println("Nombre: "+lista.get(n).getNombre() +". Apellidos: "+ lista.get(n).getApellidos());
 			respuesta = entrada.nextLine();
 			
-			if(respuesta.equals("Y")) {		
+			if(respuesta.equals('n')) {		//Y Mayus
+				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
+			}
+			
+			if(respuesta.equals('N')) {		//Y minuscula
 				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
 			}
 			
@@ -190,6 +196,91 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println("Aún no se han introducido alumnos");
 	}
 	
+
+	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
+		Scanner entrada = new Scanner ( System.in);
+		String dni;
+		int menu, posicion;
+		System.out.println("Introduce DNI del alumno a modificar: ");
+		dni = entrada.nextLine();
+		
+		posicion = buscarAlumno(lista, dni);  //indica posicion del alumno del que posteriormente se va amodificar
+		
+		if (Menu.existeAlumno(dni,lista)== true) {		//Menú para elegir lo que quieres modificar y modificarlo.
+			do {System.out.println("1 para Nombre"+"\n"+"2 para Apellidos"+"\n"+"3 para DNI"+"\n"+"4 para Telefono"+"\n"+"5 para e-mail"+"\n"+"6 SALIR");
+				menu=entrada.nextInt();
+				switch(menu) {
+				case 1:
+					System.out.println("Nuevo nombre: ");		//Nombre
+					lista.get(posicion).setNombre(entrada.nextLine());
+					break;
+					
+				case 2:
+					System.out.println("Nuevo apellido: ");		//Apellido
+					lista.get(posicion).setApellidos(entrada.nextLine());
+				    break;
+				    
+				    
+				case 3:
+					System.out.println("Nuevo DNI: "); //DNI
+					lista.get(posicion).setDni(entrada.nextLine());
+					break;
+					
+				case 4:
+					System.out.println("Nuevo Telefono: "); //TELEFONO
+					lista.get(posicion).setTelefono(entrada.nextLine());
+					break;
+					
+				case 5:
+					System.out.println("Nuevo E-mail: ");//Email
+					lista.get(posicion).setEmail(entrada.nextLine());
+					break;
+					
+				case 6:
+					break;
+				default:
+					System.out.println("Opción no válida.");	
+				}	
+			}while(menu<6);
+		}else {
+			System.out.println("Alumno inexsistente");
+		}
+	}
+
+	
+	public static boolean matricularAlumnos(ArrayList<Alumno> lista, Alumno alumno, String nomAsignatura)  throws Exception { // Autor: David guindo
+		
+		// Creamos una asignatura con el nombre introducido por el usuario
+		Calificacion asignatura = new Calificacion(nomAsignatura);
+		boolean matriculado = false;
+				
+		// Localizamos al alumno
+		int posicion = lista.indexOf(alumno);
+		
+		// Si el alumno no existe (-1) devolvemos error
+		if (posicion == -1) {
+			throw new Exception("ERROR: El alumno intorducido no ha sido dado de alta");
+		}
+		
+		// Si existe lo damos de alta en la asignatura que nos introdujo el usuario y devolvemos true
+		alumno.ponerNotas("NE", nomAsignatura);
+		matriculado = true;
+				
+		 // Devolvemos el estado de matricula
+		return matriculado;
+	}
+		
+//	public static void listarFaltas(ArrayList<Alumno> lista, Alumno alumno) {
+//		
+//		int cont = 0;
+//		
+//		alumno.getFaltas().get(0).getDia().imprimeFecha();
+//		
+//		
+//	}
+	
+
+
 
 	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
 		Scanner entrada = new Scanner (System.in);
@@ -214,8 +305,35 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println("No existe alumno");
 		}
 
+
 	}
 
+	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
+Scanner entrada = new Scanner (System.in);
+		
+		
+		System.out.println("DNI del alumno");		
+		String dni = entrada.nextLine();
+
+		if(existeAlumno(dni, lista) == true) {
+		
+		System.out.println("¿Qué día ha faltado el alumno?");		
+		int dia = entrada.nextInt();
+		
+		for (int n = 0; n<6 ; n ++) {
+		
+		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(n).faltaHora(n);			}
+		
+		}
+		else {
+			System.out.println("No existe alumno");
+		}
+
+
+	}
+
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -261,16 +379,41 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			case 4://AUTOR ANTONIO MEGIAS
 				do{
 					
+					modificarAlumno(alumnos);
 					
 				}while(repetirOpcion());
 				break;
 				
 			case 5:
 				do{
+
+					// Declarcion de variable
+					String dni = "";
+					Alumno alumno = new Alumno("");
+					String asignatura = "";
 					
+					// Pedimos DNI del alumno y se lo asignamos a un alumno para comprobar si existe
+					System.out.println("Introduzca el DNI del alumno a matricular: ");
+					dni = entrada.nextLine();
+					alumno.setDni(dni);
+					
+					// Pedimos la asignatura para pasarla como parametro al método
+					System.out.println("Introduzca la asignatura en la que matricular al alumno: ");
+					asignatura = entrada.nextLine();
+					
+					// Si se captura algún error en el método lo muestra por pantalla
+					try {
+						Menu.matricularAlumnos(alumnos, alumno, asignatura); 
+							System.out.println("El alumno ha sido matriculado correctamente");
+						
+					} catch (Exception ex){
+						System.out.println(ex.getMessage());
+					} 
+											
 					
 				}while(repetirOpcion());
 				break;
+				
 			case 6:
 				do{
 					
@@ -299,6 +442,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			case 10:
 				do{
 					
+					faltaSesion(alumnos);
 					
 				}while(repetirOpcion());
 				break;
@@ -308,9 +452,20 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				
 				//NO REPETIR
 				break;
-			case 12:
+			case 12: // Autor: David Guindo
 				do{
 					
+//					// Declaracion de variables
+//					Alumno alumno = new Alumno("");
+//					
+//					// Pedimos el alumno del que listar las faltas
+//					System.out.println("Introduzca el DNI del alumno del que listar las faltas:");
+//					alumno.setDni(entrada.nextLine());
+//					
+//
+//					
+//					System.out.println(alumno.getFaltas().get(0).getDia().imprimeFecha());
+
 					
 				}while(repetirOpcion());
 				break;
