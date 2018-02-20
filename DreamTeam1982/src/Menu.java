@@ -189,7 +189,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println("Aún no se han introducido alumnos");
 	}
 	
-
 	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
 		Scanner entrada = new Scanner ( System.in);
 		String dni;
@@ -239,7 +238,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println("Alumno inexsistente");
 		}
 	}
-
 	
 	public static boolean matricularAlumnos(ArrayList<Alumno> lista, Alumno alumno, String nomAsignatura)  throws Exception { // Autor: David guindo
 		
@@ -263,17 +261,24 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return matriculado;
 	}
 		
-//	public static void listarFaltas(ArrayList<Alumno> lista, Alumno alumno) {
-//		
-//		int cont = 0;
-//		
-//		alumno.getFaltas().get(0).getDia().imprimeFecha();
-//		
-//		
-//	}
-	
+	public static void listarFaltas(ArrayList<Alumno> lista, Alumno alumno) throws Exception{ // Autor: David Guindo
+		
+		int cont = 0;
+		int posicion = lista.indexOf(alumno);
+		
+		if(posicion == -1) {
+			throw new Exception("ERROR: El alumno introducido no existe");
+		}
+		
+		if (lista.get(posicion).getFaltas().size() == 0) {
+			throw new Exception("ERROR: El alumno no tiene faltas");
 
-
+		}
+		
+		System.out.println(lista.get(posicion).getFaltas().get(0).getDia().imprimeFecha());
+		System.out.print(lista.get(posicion).getFaltas().get(0).getSesiones().get(0).GetSesiones());
+		
+	}
 
 	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
 		Scanner entrada = new Scanner (System.in);
@@ -302,8 +307,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	}
 
 	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
-Scanner entrada = new Scanner (System.in);
-		
+		Scanner entrada = new Scanner (System.in);
 		
 		System.out.println("DNI del alumno");		
 		String dni = entrada.nextLine();
@@ -321,11 +325,7 @@ Scanner entrada = new Scanner (System.in);
 		else {
 			System.out.println("No existe alumno");
 		}
-
-
 	}
-
-	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -447,16 +447,18 @@ Scanner entrada = new Scanner (System.in);
 			case 12: // Autor: David Guindo
 				do{
 					
-//					// Declaracion de variables
-//					Alumno alumno = new Alumno("");
-//					
-//					// Pedimos el alumno del que listar las faltas
-//					System.out.println("Introduzca el DNI del alumno del que listar las faltas:");
-//					alumno.setDni(entrada.nextLine());
-//					
-//
-//					
-//					System.out.println(alumno.getFaltas().get(0).getDia().imprimeFecha());
+					// Declaracion de variables
+					Alumno alumno = new Alumno("");
+					
+					// Pedimos el alumno del que listar las faltas
+					System.out.println("Introduzca el DNI del alumno del que listar las faltas:");
+					alumno.setDni(entrada.nextLine());
+					
+					try {
+						Menu.listarFaltas(alumnos, alumno);
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
 
 					
 				}while(repetirOpcion());
