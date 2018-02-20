@@ -156,7 +156,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static void pasarLista(ArrayList<Alumno>lista) {		//Rubén Tijeras
+	public static void pasarLista(ArrayList<Alumno>lista ) throws Exception { 		//Rubén Tijeras
 		Scanner entrada = new Scanner ( System.in);
 		String respuesta;
 		
@@ -165,14 +165,19 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("¿De qué sesión va a pasar lista?");		//Introducir la sesion
 		int sesion = entrada.nextInt();
 		
+		if(sesion <1 || sesion > 7) {
+			throw new Exception("Sesion incorrecta, valores entre 1 y 6");
+		}
+		
 		System.out.println("Introducir dia");		//Dia de la sesion
 		int dia = entrada.nextInt();
 		
 		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no "
 				+ "");	//
-		respuesta = entrada.nextLine();
 		
 
+		
+		
 		for(int n = 0; n < lista.size(); n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
 			
 
@@ -189,11 +194,16 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			}
 			
 		}
+		
 	
 		}
 		
 		else
 			System.out.println("Aún no se han introducido alumnos");
+		
+		
+		
+		
 	}
 	
 
@@ -448,7 +458,12 @@ Scanner entrada = new Scanner (System.in);
 				break;
 			case 11:	//Rubén Tijeras
 				
-				pasarLista(alumnos);
+				
+				try {
+					pasarLista(alumnos);
+				} catch(Exception ex) {
+					System.out.println(ex.getMessage());
+				}
 				
 				//NO REPETIR
 				break;
