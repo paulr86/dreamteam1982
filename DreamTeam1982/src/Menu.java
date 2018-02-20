@@ -183,25 +183,57 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static void modificarAlumno(Alumno alumno,ArrayList<Alumno>lista) {//Autor Antonio Megias 
+	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
 		Scanner entrada = new Scanner ( System.in);
 		String dni;
+		int menu, posicion;
 		System.out.println("Introduce DNI del alumno a modificar: ");
 		dni = entrada.nextLine();
-		if (Menu.existeAlumno(alumno,lista)== true) {
-			
+		
+		posicion = buscarAlumno(lista, dni);
+		
+		if (Menu.existeAlumno(dni,lista)== true) {
+			do {System.out.println("1 para Nombre"+"\n"+"2 para Apellidos"+"\n"+"3 para DNI"+"\n"+"4 para Telefono"+"\n"+"5 para e-mail"+"\n"+"6 SALIR");
+				menu=entrada.nextInt();
+				switch(menu) {
+				case 1:
+					System.out.println("Nuevo nombre: ");
+					lista.get(posicion).setNombre(entrada.nextLine());
+					break;
+					
+				case 2:
+					System.out.println("Nuevo apellido: ");
+					lista.get(posicion).setApellidos(entrada.nextLine());
+				    break;
+				    
+				    
+				case 3:
+					System.out.println("Nuevo DNI: ");
+					lista.get(posicion).setDni(entrada.nextLine());
+					break;
+					
+				case 4:
+					System.out.println("Nuevo Telefono: ");
+					lista.get(posicion).setTelefono(entrada.nextLine());
+					break;
+					
+				case 5:
+					System.out.println("Nuevo E-mail: ");
+					lista.get(posicion).setEmail(entrada.nextLine());
+					break;
+					
+				case 6:
+					break;
+				default:
+					System.out.println("Opción no válida.");	
+				}	
+			}while(menu<6);
+		}else {
+			System.out.println("Alumno inexsistente");
 		}
 	}
 	
-	public static void modificarAlumnos(Alumno alumno,ArrayList<Alumno>lista) {
-		Scanner entrada = new Scanner(System.in);
-		String escaner;
-//		System.out.println("Alumno a modificar: ");
-//		escaner = entrada.nextLine();
-		existeAlumno(alumno.getDni(), lista);
-		
-	}
-	
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
