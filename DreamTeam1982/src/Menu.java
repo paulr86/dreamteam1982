@@ -31,22 +31,19 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Pablo
+	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Autor: Pablo Romero Ruiz
 		int posicion = -1;
 		boolean terminado = false;
-//		Iterator <Alumno> iterador = lista.iterator(); 
-
-//		while(iterador.hasNext()){
-//			System.out.println(iterador.next().getDni());
-//		}
-		
-		for(int i = 0; i<lista.size() && !terminado; i++){
-			if(lista.get(i).getDni().equals(dni)){
-				posicion = i;
+		//		Este programa busca un alumno en un arraylist. Pide un ArrayList en el que buscar y un dni para buscar
+		//		al alumno. Devuelve la posicion en el ArrayList en la que se encuentra.
+		for(int i = 0; i<lista.size() && !terminado; i++){ //		Bucle que recorre el array.
+			if(lista.get(i).getDni().equals(dni)){//		Compara el dni del objeto alumno que va encontrando, con el dni
+												//			que le pasamos.
+				posicion = i;	//Deposita la posicion en la que los dos dni son iguales en una variable.
 			}
 		}
 		
-		return posicion;
+		return posicion;//		Devolvemos la variable con la posicion.
 	}
 	
 	public static boolean darAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
@@ -66,46 +63,53 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introduce el dni:");
 		dni = entrada.nextLine();
 		
-		dni = dni.trim();
+		dni = dni.trim(); //Recortamos los espacios del principio y del final del dni que introducimos por teclado.
+		//					Así evitamos que haya diferencias de caractéres por espacios.
 		
 		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
-		if(!existeAlumno(alumno, lista)){
-			lista.add(alumno);
-			resultado = true;
+		if(!existeAlumno(alumno, lista)){ //Comprobamos que no existe el alumno antes de introducirlo.
+			lista.add(alumno);//Lo introducimos en el arraylist.
+			resultado = true;//Cambiamos la variable boolean para devolver que ha funcionado el metodo.
 		}
 		
-		return resultado;
+		return resultado;// Devolvemos el boolean.
 	}
 	
-	public static boolean darBaja(ArrayList<Alumno> lista){
+	public static boolean darBaja(ArrayList<Alumno> lista){//Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		boolean resultado = false;
 		String dni;
 		
+		//Metodo para dar baja a un alumno.
 		
 		System.out.println("Introduce el DNI del alumno a eliminar:");
 		dni = entrada.next();
 		
-		if(buscarAlumno(lista,dni) != -1){
-			lista.remove(buscarAlumno(lista,dni));
-			resultado = true;
+		//Pedimos el dni a traves de teclado en vez de argumento del metodo, para evitar codigo en el case.
+		
+		dni = dni.trim();	//Controlamos los espacios al principio y al final del dni.
+		
+		if(buscarAlumno(lista,dni) != -1){ //Ya que buscarAlumno devuelve un -1 si no encuentra el alumno,
+										//	lo usamos para cerciorarnos de que existe el alumno antes de borrarlo.
+			lista.remove(buscarAlumno(lista,dni)); //Una vez encontrado, lo borramos.
+			resultado = true; //Variable booleana para saber si ha funcionado el metodo.
 		}
 		
-		return resultado;
+		return resultado;// Devolvemos el boolean para informar si ha funcionado o no.
 	}
 	
 	public static boolean existeAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
-		Iterator <Alumno> iterador = lista.iterator();
-		boolean existe = false;
+		Iterator <Alumno> iterador = lista.iterator(); //Iterador para recorrer el ArrayList.
+		boolean existe = false; //Variable boolean para informar del funcionamiento del metodo.
 		
-		while(iterador.hasNext() && !existe){
-			if(alumno.getDni() == iterador.next().getDni()){
-				existe = true;
+		while(iterador.hasNext() && !existe){ //Mientras haya alumnos en el ArrayList, y no haya terminado la busqueda, va a seguir.
+			if(alumno.getDni() == iterador.next().getDni()){ //Si coiniciden el dni del alumno que le hemos pasado, y el dni del ArrayList
+				existe = true; //Pasa a verdadero el boolean
 			}
 		}
 		
-		return existe;
+		return existe; //Y se devuelve.
 	}
 	
 	
