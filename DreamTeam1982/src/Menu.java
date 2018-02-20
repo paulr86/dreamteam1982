@@ -99,9 +99,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return resultado;// Devolvemos el boolean para informar si ha funcionado o no.
 	}
 	
-<<<<<<< HEAD
-	public static boolean existeAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
-=======
 	public static boolean existeAlumno(String dni, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
 		boolean existe = false;
 		
@@ -111,7 +108,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				existe = true; // Se deposita en una variable boolean.
 			}
 		}
->>>>>>> e9f2e7f83bf9b1eecc39b0e2b4aae2c9c3640659
 		
 		return existe;// Se devuelve la variable boolean.
 	}
@@ -182,7 +178,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println(lista.get(n).getNombre()+" "+lista.get(n).getApellidos());
 			respuesta = entrada.nextLine();
 			
-			if(respuesta.equals("Y")) {
+			if(respuesta.equals("Y")) {		
 				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
 			}
 			
@@ -194,7 +190,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println("Aún no se han introducido alumnos");
 	}
 	
-<<<<<<< HEAD
+
 	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
 		Scanner entrada = new Scanner (System.in);
 		
@@ -202,6 +198,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("DNI del alumno");		//Pide el dni para localizar al alumno
 		String dni = entrada.nextLine();
 
+		if(existeAlumno(dni, lista) == true) {
 		
 		System.out.println("¿Qué día ha faltado el alumno?");		//Pide dia para colocar la falta
 		int dia = entrada.nextInt();
@@ -210,17 +207,14 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		int sesion = entrada.nextInt();
 		
 		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);		//Coloca la falta
-=======
-	public static void modificarAlumnos(Alumno alumno,ArrayList<Alumno>lista) {
-		Scanner entrada = new Scanner(System.in);
-		String escaner;
-//		System.out.println("Alumno a modificar: ");
-//		escaner = entrada.nextLine();
-		existeAlumno(alumno.getDni(), lista);
 		
->>>>>>> e9f2e7f83bf9b1eecc39b0e2b4aae2c9c3640659
+		}
+		
+		else {
+			System.out.println("No existe alumno");
+		}
+
 	}
-	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
