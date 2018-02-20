@@ -31,22 +31,19 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Pablo
+	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Autor: Pablo Romero Ruiz
 		int posicion = -1;
 		boolean terminado = false;
-//		Iterator <Alumno> iterador = lista.iterator(); 
-
-//		while(iterador.hasNext()){
-//			System.out.println(iterador.next().getDni());
-//		}
-		
-		for(int i = 0; i<lista.size() && !terminado; i++){
-			if(lista.get(i).getDni().equals(dni)){
-				posicion = i;
+		//		Este programa busca un alumno en un arraylist. Pide un ArrayList en el que buscar y un dni para buscar
+		//		al alumno. Devuelve la posicion en el ArrayList en la que se encuentra.
+		for(int i = 0; i<lista.size() && !terminado; i++){ //		Bucle que recorre el array.
+			if(lista.get(i).getDni().equals(dni)){//		Compara el dni del objeto alumno que va encontrando, con el dni
+												//			que le pasamos.
+				posicion = i;	//Deposita la posicion en la que los dos dni son iguales en una variable.
 			}
 		}
 		
-		return posicion;
+		return posicion;//		Devolvemos la variable con la posicion.
 	}
 	
 	public static boolean darAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
@@ -66,38 +63,57 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introduce el dni:");
 		dni = entrada.nextLine();
 		
-		dni = dni.trim();
+		dni = dni.trim(); //Recortamos los espacios del principio y del final del dni que introducimos por teclado.
+		//					Así evitamos que haya diferencias de caractéres por espacios.
 		
 		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
-		if(!existeAlumno(alumno, lista)){
-			lista.add(alumno);
-			resultado = true;
+		if(!existeAlumno(alumno.getDni(), lista)){ //Comprobamos que no existe el alumno antes de introducirlo.
+			lista.add(alumno);//Lo introducimos en el arraylist.
+			resultado = true;//Cambiamos la variable boolean para devolver que ha funcionado el metodo.
 		}
 		
-		return resultado;
+		return resultado;// Devolvemos el boolean.
 	}
 	
-	public static boolean darBaja(ArrayList<Alumno> lista){
+	public static boolean darBaja(ArrayList<Alumno> lista){//Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		boolean resultado = false;
 		String dni;
 		
+		//Metodo para dar baja a un alumno.
 		
 		System.out.println("Introduce el DNI del alumno a eliminar:");
 		dni = entrada.next();
 		
-		if(buscarAlumno(lista,dni) != -1){
-			lista.remove(buscarAlumno(lista,dni));
-			resultado = true;
+		//Pedimos el dni a traves de teclado en vez de argumento del metodo, para evitar codigo en el case.
+		
+		dni = dni.trim();	//Controlamos los espacios al principio y al final del dni.
+		
+		if(buscarAlumno(lista,dni) != -1){ //Ya que buscarAlumno devuelve un -1 si no encuentra el alumno,
+										//	lo usamos para cerciorarnos de que existe el alumno antes de borrarlo.
+			lista.remove(buscarAlumno(lista,dni)); //Una vez encontrado, lo borramos.
+			resultado = true; //Variable booleana para saber si ha funcionado el metodo.
 		}
 		
-		return resultado;
+		return resultado;// Devolvemos el boolean para informar si ha funcionado o no.
 	}
 	
+<<<<<<< HEAD
 	public static boolean existeAlumno(Alumno alumno, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
+=======
+	public static boolean existeAlumno(String dni, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
+		boolean existe = false;
 		
-		return existe;
+		for(int i=0; i<lista.size() && !existe; i++){ //Recorre el ArrayList mientras que el alumno no se haya encontrado.
+			
+			if(lista.get(i).getDni().equals(dni)){// Si el dni del alumno que esta siendo recorrido es igual al dni que le hemos pasado
+				existe = true; // Se deposita en una variable boolean.
+			}
+		}
+>>>>>>> e9f2e7f83bf9b1eecc39b0e2b4aae2c9c3640659
+		
+		return existe;// Se devuelve la variable boolean.
 	}
 	
 	
@@ -112,8 +128,12 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return hay;
 	}
 	
-	public static void listarAlumnos(ArrayList<Alumno>lista) {
-		Iterator <Alumno> listador = lista.iterator();
+	public static void listarAlumnos(ArrayList<Alumno>lista) { //Autor: Antonio Megias
+		
+		for(int i=0; i<lista.size(); i++) {
+			System.out.println("Alumno: " + lista.get(i).getNombre() + " " + lista.get(i).getApellidos());
+		}
+		
 	}
 	
 	public static void introducirCalificacion(ArrayList<Alumno>lista) {		//Rubén Tijeras
@@ -174,6 +194,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.println("Aún no se han introducido alumnos");
 	}
 	
+<<<<<<< HEAD
 	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
 		Scanner entrada = new Scanner (System.in);
 		
@@ -189,6 +210,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		int sesion = entrada.nextInt();
 		
 		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);		//Coloca la falta
+=======
+	public static void modificarAlumnos(Alumno alumno,ArrayList<Alumno>lista) {
+		Scanner entrada = new Scanner(System.in);
+		String escaner;
+//		System.out.println("Alumno a modificar: ");
+//		escaner = entrada.nextLine();
+		existeAlumno(alumno.getDni(), lista);
+		
+>>>>>>> e9f2e7f83bf9b1eecc39b0e2b4aae2c9c3640659
 	}
 	
 
@@ -226,9 +256,8 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				}while(repetirOpcion());
 				break;
 			case 3:
-				if(Menu.hayAlumnos(alumnos)== true) {
-					System.out.println("Existen alumnos");
-					
+				if(hayAlumnos(alumnos)== true) {
+					listarAlumnos(alumnos);
 				}else {
 					System.out.println("No hay alumnos");
 				}
