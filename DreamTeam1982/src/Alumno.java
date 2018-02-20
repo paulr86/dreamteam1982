@@ -52,7 +52,7 @@ public class Alumno {
 		return apellidos;
 	}
 
-	public void setApellidos() {
+	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
 
