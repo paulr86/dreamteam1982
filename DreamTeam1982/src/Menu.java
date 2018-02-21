@@ -383,7 +383,7 @@ Scanner entrada = new Scanner (System.in);
 	
 	public static String listarCalificacionesDeAlumno(ArrayList<Alumno>lista) { // Autor: Álvaro Moya Pino
 		Scanner entrada = new Scanner(System.in);
-		System.out.println("Introduce el DNI del alumno a dar de baja de la asignatura:");
+		System.out.println("Introduce el DNI del alumno del que desea consultar las calificaciones:");
 		String dni = entrada.next();
 		dni = dni.trim();
 		System.out.println("listar asignaturas");
