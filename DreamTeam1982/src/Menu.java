@@ -7,9 +7,9 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 		System.out.println("GESTION DE ALUMNOS. Menu:" + "\n1- Dar de alta alumnos" + "\n2- Dar de baja alumnos"
 				+ "\n3- Listar los alumnos" + "\n4- Modificar alumnos" + "\n5- Matricular alumnos"
-				+ "\n6- Dar de baja de una asignatura" + "\n7- Introducir calficación trimestral"
-				+ "\n8- Listar calificaciones de alumnos" + "\n9- Poner una falta (día completo)"
-				+ "\n10- Poner una falta (en una sesión)" + "\n11- Pasar lista" + "\n12- Listar faltas"
+				+ "\n6- Dar de baja de una asignatura" + "\n7- Introducir calficaciÃ³n trimestral"
+				+ "\n8- Listar calificaciones de alumnos" + "\n9- Poner una falta (dÃ­a completo)"
+				+ "\n10- Poner una falta (en una sesiÃ³n)" + "\n11- Pasar lista" + "\n12- Listar faltas"
 				+ "\n13- Salir");
 	}
 	
@@ -19,10 +19,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		char opc; 
 		
 		
-		System.out.println("¿Quieres repetir la operación? Y/N:");
+		System.out.println("Â¿Quieres repetir la operaciÃ³n? Y/N:");
 		opc = Character.toUpperCase(entrada.next().charAt(0));
-		//	Método estático para pasar un carácter a mayúsculas, ya que
-		//	el usuario va a introducir o mayúsculas o minúsculas.
+		//	MÃ©todo estÃ¡tico para pasar un carÃ¡cter a mayÃºsculas, ya que
+		//	el usuario va a introducir o mayÃºsculas o minÃºsculas.
 		if(opc == 'Y'){
 			repetir = true;
 		}
@@ -64,7 +64,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		dni = entrada.nextLine();
 		
 		dni = dni.trim(); //Recortamos los espacios del principio y del final del dni que introducimos por teclado.
-		//					Así evitamos que haya diferencias de caractéres por espacios.
+		//					AsÃ­ evitamos que haya diferencias de caractÃ©res por espacios.
 		
 		Alumno alumno = new Alumno(dni, nombre, apellidos);
 		
@@ -130,7 +130,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static void introducirCalificacion(ArrayList<Alumno>lista) {		//Rubén Tijeras
+	public static void introducirCalificacion(ArrayList<Alumno>lista) {		//RubÃ©n Tijeras
 		int posicion;
 		String dni, nota, asignatura;
 		Scanner entrada = new Scanner(System.in);
@@ -156,13 +156,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static void pasarLista(ArrayList<Alumno>lista ) throws Exception { 		//Rubén Tijeras
+	public static void pasarLista(ArrayList<Alumno>lista ) throws Exception { 		//RubÃ©n Tijeras
 		Scanner entrada = new Scanner ( System.in);
 		String respuesta;
 		
 		if(hayAlumnos(lista)==true) {
 		
-		System.out.println("¿De qué sesión va a pasar lista?");		//Introducir la sesion
+		System.out.println("Â¿De quÃ© sesiÃ³n va a pasar lista?");		//Introducir la sesion
 		int sesion = entrada.nextInt();
 		
 		if(sesion <1 || sesion > 7) {
@@ -172,7 +172,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introducir dia");		//Dia de la sesion
 		int dia = entrada.nextInt();
 		
-		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no "
+		System.out.println("A continuaciÃ³n se listarÃ¡n los alumnos registrados, responda con Y/N si han asistido a clase o no "
 				+ "");	//
 		
 
@@ -199,7 +199,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		}
 		
 		else
-			System.out.println("Aún no se han introducido alumnos");
+			System.out.println("AÃºn no se han introducido alumnos");
 		
 		
 		
@@ -216,7 +216,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		posicion = buscarAlumno(lista, dni);  //indica posicion del alumno del que posteriormente se va amodificar
 		
-		if (Menu.existeAlumno(dni,lista)== true) {		//Menú para elegir lo que quieres modificar y modificarlo.
+		if (Menu.existeAlumno(dni,lista)== true) {		//MenÃº para elegir lo que quieres modificar y modificarlo.
 			do {System.out.println("1 para Nombre"+"\n"+"2 para Apellidos"+"\n"+"3 para DNI"+"\n"+"4 para Telefono"+"\n"+"5 para e-mail"+"\n"+"6 SALIR");
 				menu=entrada.nextInt();
 				switch(menu) {
@@ -249,7 +249,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				case 6:
 					break;
 				default:
-					System.out.println("Opción no válida.");	
+					System.out.println("OpciÃ³n no vÃ¡lida.");	
 				}	
 			}while(menu<6);
 		}else {
@@ -292,7 +292,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 
 
-	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
+	public static void faltaSesion(ArrayList<Alumno>lista) {	//RubÃ©n Tijeras
 		Scanner entrada = new Scanner (System.in);
 		
 		
@@ -301,10 +301,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 		if(existeAlumno(dni, lista) == true) {
 		
-		System.out.println("¿Qué día ha faltado el alumno?");		//Pide dia para colocar la falta
+		System.out.println("Â¿QuÃ© dÃ­a ha faltado el alumno?");		//Pide dia para colocar la falta
 		int dia = entrada.nextInt();
 		
-		System.out.println("¿En qué sesión se ausentó el alumno?");		//Pide la sesión 
+		System.out.println("Â¿En quÃ© sesiÃ³n se ausentÃ³ el alumno?");		//Pide la sesiÃ³n 
 		int sesion = entrada.nextInt();
 		
 		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);		//Coloca la falta
@@ -327,7 +327,7 @@ Scanner entrada = new Scanner (System.in);
 
 		if(existeAlumno(dni, lista) == true) {
 		
-		System.out.println("¿Qué día ha faltado el alumno?");		
+		System.out.println("Â¿QuÃ© dÃ­a ha faltado el alumno?");		
 		int dia = entrada.nextInt();
 		
 		for (int n = 0; n<6 ; n ++) {
@@ -342,7 +342,65 @@ Scanner entrada = new Scanner (System.in);
 
 	}
 
+	public static void darBajaAsignatura(ArrayList<Alumno>lista) { // Autor: Ãƒï¿½lvaro Moya Pino
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Introduce el DNI del alumno a dar de baja de la asignatura:");
+		String dni = entrada.next();
+		dni = dni.trim();
+		
+		if(buscarAlumno(lista,dni) != -1){
+			int indiceAlumno = buscarAlumno(lista,dni);
+			Alumno alumnoEncontrado = lista.get(indiceAlumno);
+			
+			System.out.println("Alumno encontrado, ahora escriba la asignatura de la que quiere darse de baja: ");
+			entrada.nextLine();
+			String asignaturaIntroducida = entrada.nextLine();
+			
+			int indiceAsignatura = alumnoTieneAsignatura(alumnoEncontrado, asignaturaIntroducida);
+			if(indiceAsignatura != -1) {
+				//Ahora borramos la asignatura de sus calificaciones
+				alumnoEncontrado.getNotas().remove(indiceAsignatura);
+				System.out.println("Alumno "+ alumnoEncontrado.getNombre() + ", se ha dado de baja de " + asignaturaIntroducida);
+			}else {
+				System.out.println("El alumno introducido no cursa esa asignatura introducida");
+				darBajaAsignatura(lista);
+			}
+		}else {
+			System.out.println("Alumno no encontrado, por favor, escriba un dni vÃƒÂ¡lido: ");
+			darBajaAsignatura(lista);
+		}
+	}
 	
+	public static int alumnoTieneAsignatura(Alumno alumno, String asignatura) { // Autor: Ãƒï¿½lvaro Moya Pino
+		ArrayList <Calificacion> calificaciones = alumno.getNotas();
+		for(Calificacion calificacion:calificaciones) {
+			if(calificacion.getAsignatura().equals(asignatura)) {
+				return calificaciones.indexOf(calificacion);
+			}
+		}
+		return -1;
+	}
+	
+	public static String listarCalificacionesDeAlumno(ArrayList<Alumno>lista) { // Autor: Ãƒï¿½lvaro Moya Pino
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Introduce el DNI del alumno del que desea consultar las calificaciones:");
+		String dni = entrada.next();
+		dni = dni.trim();
+		System.out.println("listar asignaturas");
+		if(buscarAlumno(lista,dni) != -1){
+			int indiceAlumno = buscarAlumno(lista,dni);
+			Alumno alumnoEncontrado = lista.get(indiceAlumno);
+			String listeDeCalificaciones = "El alumno " + alumnoEncontrado.getNombre() + " tiene las siguientes calificaciones ";
+			for(Calificacion calificacion: alumnoEncontrado.getNotas()) {
+				System.out.println(calificacion.getAsignatura() + ", tiene una nota de " + calificacion.getNota());
+			}
+		}else {
+			System.out.println("Alumno no encontrado, por favor, escriba un dni vÃƒÂ¡lido: ");
+			listarCalificacionesDeAlumno(lista);
+		}
+		
+		return "";
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -407,11 +465,11 @@ Scanner entrada = new Scanner (System.in);
 					dni = entrada.nextLine();
 					alumno.setDni(dni);
 					
-					// Pedimos la asignatura para pasarla como parametro al método
+					// Pedimos la asignatura para pasarla como parametro al mÃ©todo
 					System.out.println("Introduzca la asignatura en la que matricular al alumno: ");
 					asignatura = entrada.nextLine();
 					
-					// Si se captura algún error en el método lo muestra por pantalla
+					// Si se captura algÃºn error en el mÃ©todo lo muestra por pantalla
 					try {
 						Menu.matricularAlumnos(alumnos, alumno, asignatura); 
 							System.out.println("El alumno ha sido matriculado correctamente");
@@ -430,7 +488,7 @@ Scanner entrada = new Scanner (System.in);
 					
 				}while(repetirOpcion());
 				break;
-			case 7:	//Rubén Tijeras
+			case 7:	//RubÃ©n Tijeras
 				do{
 					
 					introducirCalificacion(alumnos);
@@ -456,7 +514,7 @@ Scanner entrada = new Scanner (System.in);
 					
 				}while(repetirOpcion());
 				break;
-			case 11:	//Rubén Tijeras
+			case 11:	//RubÃ©n Tijeras
 				
 				
 				try {
@@ -486,10 +544,10 @@ Scanner entrada = new Scanner (System.in);
 				break;
 			case 13:
 				//NO REPETIR
-				System.out.println("¡Adios!");
+				System.out.println("Â¡Adios!");
 				break;
 			default:
-				System.out.println("Opción no válida.");
+				System.out.println("OpciÃ³n no vÃ¡lida.");
 			}
 		} while (opcion < 13);
 

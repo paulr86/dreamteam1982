@@ -82,10 +82,24 @@ public class Alumno {
 	}
 	
 	public void ponerNotas(String calificacion, String asignatura) {
+		// Compruebo si existe una calificacion sobre esa asignatura
+		//Recorro todas las calificaciones
+		Boolean notaPuesta = false;
 		
-		Calificacion calif = new Calificacion(asignatura); //Creamos un objeto calificacion para introducir sus notas
-		calif.setNota(calificacion);	//Establecemos la nota
-		this.notas.add(calif);	//A�adimos la calificacion
+		// comprobamos si en asignatura existe calificación
+		
+		for(Calificacion calificacion2 : this.getNotas()) {
+			if(calificacion2.getAsignatura().equals(asignatura)) {
+				calificacion2.setNota(calificacion);
+				notaPuesta = true;
+			}
+		}
+		
+		if(!notaPuesta) { 
+			Calificacion calif = new Calificacion(asignatura); //Creamos un objeto calificacion para introducir sus notas
+			calif.setNota(calificacion);	//Establecemos la nota
+			this.notas.add(calif);	//Añadimos la calificacion
+		}
 	}
 
 	public boolean equals(Object object) {
