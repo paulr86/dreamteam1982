@@ -8,13 +8,13 @@ public class DiaClase {
 	// Atributos de la clase
 	
 	private Fecha dia;
-	private ArrayList<Horario> sesiones;
+	private Horario sesiones;
 	
 	// Inicializa el día y crea la instancia de horario
 	
 	public DiaClase(Fecha dia) {
 		this.dia = dia;
-		this.sesiones = new ArrayList<Horario>();
+		this.sesiones = sesiones;
 	}
 	
 	// Getter y set de 'dia'
@@ -23,7 +23,7 @@ public class DiaClase {
 		return dia;
 	}
 	
-	public ArrayList<Horario> getSesiones() {    
+	public Horario getSesiones() {    
 		return sesiones;
 	}
 	

@@ -156,55 +156,142 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
+
 	public static void pasarLista(ArrayList<Alumno>lista ) throws Exception { 		//Rubén Tijeras
-		Scanner entrada = new Scanner ( System.in);
-		String respuesta;
+		Scanner entrada = new Scanner (System.in);
 		
-		if(hayAlumnos(lista)==true) {
-		
-		System.out.println("¿De qué sesión va a pasar lista?");		//Introducir la sesion
-		int sesion = entrada.nextInt();
-		
-		if(sesion <1 || sesion > 7) {
-			throw new Exception("Sesion incorrecta, valores entre 1 y 6");
-		}
-		
-		System.out.println("Introducir dia");		//Dia de la sesion
-		int dia = entrada.nextInt();
-		
-		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no "
-				+ "");	//
-		
+		System.out.println("DNI del alumno");		//Pide el dni para localizar al alumno
+		String dni = entrada.nextLine();
 
-		
-		
-		for(int n = 0; n < lista.size(); n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
+		if(existeAlumno(dni, lista) == true) {
+			System.out.println("Fecha:");
+			System.out.println("Día");
+			int dia = entrada.nextInt();
+			System.out.println("Número de mes");			//Fijamos la fecha y comprobamos en el trycatch que sea correcta
+			int mes = entrada.nextInt();
+			System.out.println("Año");
+			int agno = entrada.nextInt();
 			
-
 			
-			System.out.println("Nombre: "+lista.get(n).getNombre() +". Apellidos: "+ lista.get(n).getApellidos());
-			respuesta = entrada.nextLine();
 			
-			if(respuesta.equals('n')) {		//Y Mayus
-				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
+			System.out.println("¿Qué sesion ha faltado?");		//Pedimos la sesion
+			int sesion = entrada.nextInt();
+			
+			if(sesion <1 || sesion > 7) {
+				throw new Exception("Sesion incorrecta, valores entre 1 y 6");
 			}
 			
-			if(respuesta.equals('N')) {		//Y minuscula
-				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
+			
+			try {
+			Fecha fecha = new Fecha(dia, mes, agno);
+			
+			System.out.println("A continuación se listaran los alumnos, responda con Y en caso de asistencia o con N en caso de ausencia");
+			
+			for ( int n = 0 ; n < lista.size(); n++) {
+			
+			int posicion = lista.get(n).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+			
+			System.out.println(lista.get(n).getNombre() + " " + lista.get(n).getApellidos());
+			String respuesta = entrada.nextLine();									//Guardamos la respuesta del usuario
+					
+			if(respuesta.equals('N'))
+				lista.get(n).getFaltas().get(dia).getSesiones().faltaHora(sesion);
+			
+			if(respuesta.equals('n'))
+				lista.get(n).getFaltas().get(dia).getSesiones().faltaHora(sesion);
+			
 			}
 			
+			} catch(Exception ex){
+				System.out.println(ex.getMessage());
+			}
 		}
-		
-	
-		}
-		
-		else
-			System.out.println("Aún no se han introducido alumnos");
-		
-		
-		
-		
 	}
+	
+	public static void faltaSesion(ArrayList<Alumno>lista) throws Exception {	//Rubén Tijeras
+		Scanner entrada = new Scanner (System.in);
+		
+		
+		System.out.println("DNI del alumno");		//Pide el dni para localizar al alumno
+		String dni = entrada.nextLine();
+
+		if(existeAlumno(dni, lista) == true) {
+			System.out.println("Fecha:");
+			System.out.println("Día");
+			int dia = entrada.nextInt();
+			System.out.println("Número de mes");			//Fijamos la fecha y comprobamos en el trycatch que sea correcta
+			int mes = entrada.nextInt();
+			System.out.println("Año");
+			int agno = entrada.nextInt();
+			
+			System.out.println("¿Qué sesion ha faltado?");		//Pedimos la sesion
+			int sesion = entrada.nextInt();
+			
+			if(sesion <1 || sesion > 7) {
+				throw new Exception("Sesion incorrecta, valores entre 1 y 6");
+				}
+			
+			
+			try {
+			Fecha fecha = new Fecha(dia, mes, agno);
+			
+			int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+			
+			lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		//Colocamos las faltas de la sesion
+			
+			} catch(Exception ex){
+				System.out.println(ex.getMessage());
+			}
+		}
+
+		else {
+			System.out.println("No existe alumno");
+		}
+
+
+	}
+
+
+	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
+		Scanner entrada = new Scanner (System.in);
+		
+		
+		System.out.println("DNI del alumno");			//DNI DEL ALUMNO
+		String dni = entrada.nextLine();
+
+		if(existeAlumno(dni, lista) == true) {			//Si existe el alumno hará el proceso
+		
+		System.out.println("Fecha:");
+		System.out.println("Día");
+		int dia = entrada.nextInt();
+		System.out.println("Número de mes");			//Fijamos la fecha y comprobamos en el trycatch que sea correcta
+		int mes = entrada.nextInt();
+		System.out.println("Año");
+		int agno = entrada.nextInt();
+		
+		try {
+		Fecha fecha = new Fecha(dia, mes, agno);
+		
+		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+		
+		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		//Colocamos las faltas del dia completo
+		
+		} catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+
+		}
+		
+		else {
+			System.out.println("No existe alumno");			//Si no existe alumno
+		}
+
+
+
+	}
+
+
+	
 	
 
 	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
@@ -289,58 +376,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 //		
 //	}
 	
-
-
-
-	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
-		Scanner entrada = new Scanner (System.in);
-		
-		
-		System.out.println("DNI del alumno");		//Pide el dni para localizar al alumno
-		String dni = entrada.nextLine();
-
-		if(existeAlumno(dni, lista) == true) {
-		
-		System.out.println("¿Qué día ha faltado el alumno?");		//Pide dia para colocar la falta
-		int dia = entrada.nextInt();
-		
-		System.out.println("¿En qué sesión se ausentó el alumno?");		//Pide la sesión 
-		int sesion = entrada.nextInt();
-		
-		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);		//Coloca la falta
-		
-		}
-		
-		else {
-			System.out.println("No existe alumno");
-		}
-
-
-	}
-
-	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
-Scanner entrada = new Scanner (System.in);
-		
-		
-		System.out.println("DNI del alumno");		
-		String dni = entrada.nextLine();
-
-		if(existeAlumno(dni, lista) == true) {
-		
-		System.out.println("¿Qué día ha faltado el alumno?");		
-		int dia = entrada.nextInt();
-		
-		for (int n = 0; n<6 ; n ++) {
-		
-		lista.get(buscarAlumno(lista,dni)).getFaltas().get(dia).getSesiones().get(n).faltaHora(n);			}
-		
-		}
-		else {
-			System.out.println("No existe alumno");
-		}
-
-
-	}
 
 	public static void darBajaAsignatura(ArrayList<Alumno>lista) { // Autor: Ã�lvaro Moya Pino
 		Scanner entrada = new Scanner(System.in);
@@ -504,13 +539,21 @@ Scanner entrada = new Scanner (System.in);
 			case 9:
 				do{
 					
+					try {
+						faltaDia(alumnos);
+						} catch (Exception ex) {
+							System.out.println(ex.getMessage());
+						}
 					
 				}while(repetirOpcion());
 				break;
 			case 10:
 				do{
-					
+					try {
 					faltaSesion(alumnos);
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
 					
 				}while(repetirOpcion());
 				break;
