@@ -610,9 +610,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				System.out.println("¡Adios!");
 				break;
 			default:
-				System.out.println("Opción no válida.");
+				System.out.println("\nOpción no válida.\n");
+				break;
 			}
-		} while (opcion < 13);
+		} while (opcion != 13);
 
 	}
 
