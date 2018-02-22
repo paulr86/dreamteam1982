@@ -151,9 +151,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		lista.get(posicion).ponerNotas(nota, asignatura);	//Sacamos el alumno y le ponemos la nota
 		
-		System.out.println(lista.get(posicion).getNotas());
-		
-		
+		System.out.println(lista.get(posicion).getNotas());		
 	}
 	
 	public static void pasarLista(ArrayList<Alumno>lista) {		//Rubén Tijeras
@@ -168,17 +166,22 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("Introducir dia");		//Dia de la sesion
 		int dia = entrada.nextInt();
 		
-		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no");	//
+		System.out.println("A continuación se listarán los alumnos registrados, responda con Y/N si han asistido a clase o no "
+				+ "");	//
 		respuesta = entrada.nextLine();
 		
 
 		for(int n = 0; n < lista.size(); n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
-			
-			System.out.println(lista.get(n).getNombre()+" "+lista.get(n).getApellidos());
+						
+			System.out.println("Nombre: "+lista.get(n).getNombre() +". Apellidos: "+ lista.get(n).getApellidos());
 			respuesta = entrada.nextLine();
 			
-			if(respuesta.equals("Y")) {		
-				lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion);
+			if(respuesta.equals('n')) {		//n Mayus
+				System.out.println(lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion));
+			}
+			
+			if(respuesta.equals('N')) {		//N minuscula
+				System.out.println(lista.get(n).getFaltas().get(dia).getSesiones().get(sesion).faltaHora(sesion));
 			}
 			
 		}
@@ -261,23 +264,30 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return matriculado;
 	}
 		
-	public static void listarFaltas(ArrayList<Alumno> lista, Alumno alumno) throws Exception{ // Autor: David Guindo
-		
-		int cont = 0;
+	public static void listarFaltas(ArrayList<Alumno> lista, Alumno alumno) throws Exception { // Autor: David Guindo
+
+		// comprobamos posicion del alumno
 		int posicion = lista.indexOf(alumno);
-		
-		if(posicion == -1) {
+
+		// Capturamos excepciones
+		if (posicion == -1) {
 			throw new Exception("ERROR: El alumno introducido no existe");
 		}
-		
+
 		if (lista.get(posicion).getFaltas().size() == 0) {
 			throw new Exception("ERROR: El alumno no tiene faltas");
-
 		}
-		
-		System.out.println(lista.get(posicion).getFaltas().get(0).getDia().imprimeFecha());
-		System.out.print(lista.get(posicion).getFaltas().get(0).getSesiones().get(0).GetSesiones());
-		
+
+		// Mostramos los Dias que tiene el alumno registrados hasta que no haya más
+		for (int contFaltas = 0; contFaltas < alumno.getFaltas().size(); contFaltas++) {
+			System.out.print(alumno.getFaltas().get(contFaltas).getDia().imprimeFecha() + ": ");
+
+			// Mostramos las sesiones que ha faltado el alumno del día correspondiente
+			for (int contSesion = 0; contSesion < alumno.getFaltas().get(contFaltas).getSesiones()
+					.size(); contSesion++) {
+				System.out.print(alumno.getFaltas().get(contFaltas).getSesiones().get(contSesion) + "	");
+			}
+		}
 	}
 
 	public static void faltaSesion(ArrayList<Alumno>lista) {	//Rubén Tijeras
@@ -435,6 +445,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			case 10:
 				do{
 					
+					faltaSesion(alumnos);
 					
 				}while(repetirOpcion());
 				break;
@@ -447,20 +458,20 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			case 12: // Autor: David Guindo
 				do{
 					
-					// Declaracion de variables
-					Alumno alumno = new Alumno("");
+					// Declaramos un alumno tmp para pasar datos al método
+					Alumno tmp = new Alumno("");
 					
 					// Pedimos el alumno del que listar las faltas
 					System.out.println("Introduzca el DNI del alumno del que listar las faltas:");
-					alumno.setDni(entrada.nextLine());
+					tmp.setDni(entrada.nextLine());
 					
+					// Si se produce una excepción la mostramos
 					try {
-						Menu.listarFaltas(alumnos, alumno);
+						Menu.listarFaltas(alumnos, tmp);
 					} catch (Exception ex) {
 						System.out.println(ex.getMessage());
 					}
 
-					
 				}while(repetirOpcion());
 				break;
 			case 13:
