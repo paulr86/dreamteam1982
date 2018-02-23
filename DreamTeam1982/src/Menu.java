@@ -279,31 +279,30 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		int agno = entrada.nextInt();
 		
 		try {
+			// Creamos un objeto fecha y un tmp de alumno para pasar al metodo
 		Fecha fecha = new Fecha(dia, mes, agno);
 		Alumno tmp = new Alumno(dni);
 		
-		crearFecha(lista, fecha, tmp);
+		// Creamos la falta sino existe
+		crearFalta(lista, fecha, tmp);
 		
-		System.out.println("HOLA:" + buscarAlumno(lista,dni));
+//		System.out.println("HOLA:" + buscarAlumno(lista,dni));
+		
+		EL PROBLEMA ESTA EN QUE NO HAY NINGUNA INSTANCIA DE FALTAS CREADAAAAA REVISARRRRR
 
-		DiaClase paco = new DiaClase(fecha);
+		// Creamos un tmp de Falta para buscar la posicion de la fecha en el ArrayList
+		DiaClase tmpFalta = new DiaClase(fecha);
+				
+		//Sacamos la posición del AL de la fecha a la que queremos acceder
+		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(tmpFalta);	
 		
-		lista.get(0).getFaltas().add(paco);
+//		System.out.println("Hola2: "+ posicion);
+//		
+//		System.out.println("TAMAÑO ARRAY ALUMNOS: " + lista.size());
+//		System.out.println("TAMAÑO ARRAY FALTAS: " + lista.get(0).getFaltas().size());
 		
-		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(paco);	//Sacamos la posición del AL de la fecha a la que queremos acceder
-		
-		
-		
-		
-		
-		
-		System.out.println("Hola2: "+ posicion);
-		
-		System.out.println("TAMAÑO ARRAY ALUMNOS: " + lista.size());
-		System.out.println("TAMAÑO ARRAY FALTAS: " + lista.get(0).getFaltas().size());
-		
-		
-		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		//Colocamos las faltas del dia completo
+		//Colocamos las faltas del dia completo
+		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		
 		
 		} catch(Exception ex){
 			System.out.println(ex.getMessage());
@@ -319,7 +318,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 	}
 
-	public static void crearFecha (ArrayList<Alumno> lista, Fecha fecha, Alumno alumno) throws Exception{ //Autores : David Guindo y Pablo Romero
+	public static void crearFalta (ArrayList<Alumno> lista, Fecha fecha, Alumno alumno) throws Exception{ //Autores : David Guindo y Pablo Romero
 		Scanner entrada = new Scanner(System.in);
 		boolean resultado = false;
 		
