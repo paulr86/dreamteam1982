@@ -258,7 +258,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				System.out.println(ex.getMessage());
 			}
 		}
-	}
+	
 
 
 	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
@@ -280,8 +280,28 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		try {
 		Fecha fecha = new Fecha(dia, mes, agno);
+		Alumno tmp = new Alumno(dni);
 		
-		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+		crearFecha(lista, fecha, tmp);
+		
+		System.out.println("HOLA:" + buscarAlumno(lista,dni));
+
+		DiaClase paco = new DiaClase(fecha);
+		
+		lista.get(0).getFaltas().add(paco);
+		
+		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(paco);	//Sacamos la posición del AL de la fecha a la que queremos acceder
+		
+		
+		
+		
+		
+		
+		System.out.println("Hola2: "+ posicion);
+		
+		System.out.println("TAMAÑO ARRAY ALUMNOS: " + lista.size());
+		System.out.println("TAMAÑO ARRAY FALTAS: " + lista.get(0).getFaltas().size());
+		
 		
 		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		//Colocamos las faltas del dia completo
 		
@@ -299,7 +319,46 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 	}
 
+	public static void crearFecha (ArrayList<Alumno> lista, Fecha fecha, Alumno alumno) throws Exception{ //Autores : David Guindo y Pablo Romero
+		Scanner entrada = new Scanner(System.in);
+		boolean resultado = false;
+		
+		DiaClase prueba = new DiaClase(fecha);
+		
+		// Buscamos posicion alumno
+		int posAlum = lista.indexOf(alumno);
+		
+		// Iterador
+		Iterator<DiaClase> iteratorClase = lista.get(posAlum).getFaltas().iterator();
+		
+		
+		while(iteratorClase.hasNext()){
+			// temporal para poder comparar
+			DiaClase tmpClase = lista.get(posAlum).getFaltas().get(0);
+			
+			if(tmpClase != prueba) {
+				lista.get(posAlum).getFaltas().add(prueba);				
+			} 			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
+		
+	}
 	
 	
 	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
@@ -619,9 +678,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				System.out.println("¡Adios!");
 				break;
 			default:
-				System.out.println("Opción no válida.");
+				System.out.println("\nOpción no válida.\n");
+				break;
 			}
-		} while (opcion < 13);
+		} while (opcion != 13);
 
 	}
 
