@@ -274,7 +274,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		try {
 		Fecha fecha = new Fecha(dia, mes, agno);
 		
+		crearFecha(lista, fecha, dni);
+		
+		System.out.println("HOLA:" + buscarAlumno(lista,dni));
+		
 		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+		
+		System.out.println("Hola2: "+ posicion);
 		
 		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		//Colocamos las faltas del dia completo
 		
@@ -292,7 +298,36 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 	}
 
-
+	public static DiaClase crearFecha (ArrayList<Alumno> lista, Fecha fecha, String dni) throws Exception{ //Autores : David Guindo y Pablo Romero
+		Scanner entrada = new Scanner(System.in);
+		boolean resultado = false;
+		Alumno tmp = new Alumno(dni);
+		
+		int posicion = lista.indexOf(tmp);
+		
+		if(posicion == -1){
+			throw new Exception ("El alumno no existe.");
+		}
+		
+		Iterator<DiaClase> iteradorDia = tmp.getFaltas().iterator();
+		
+		DiaClase pepe = new DiaClase(fecha);
+		
+		while(iteradorDia.hasNext()){
+			DiaClase fechaTmp = iteradorDia.next();
+			
+			if(fechaTmp.getDia() == fecha){
+				return fechaTmp; //Devuelve false si la fecha ya existe.
+			}else{
+				
+				lista.get(posicion).getFaltas().add(pepe);
+				return pepe; //Devuelve true si la fecha no existe y ha sido creada.
+			}
+		}
+		
+		return pepe;
+		
+	}
 	
 	
 	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
@@ -387,8 +422,8 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			System.out.print(alumno.getFaltas().get(contFaltas).getDia().imprimeFecha() + ": ");
 
 			// Mostramos las sesiones que ha faltado el alumno del d�a correspondiente
-			for (int contSesion = 0; contSesion < alumno.getFaltas().get(contFaltas).getSesiones().GetSesiones().length;contSesion++)
-					System.out.print(alumno.getFaltas().get(contFaltas).getSesiones().GetSesiones() + " /	");
+			for (int contSesion = 0; contSesion < alumno.getFaltas().get(contFaltas).getSesiones().getSesiones().length;contSesion++)
+					System.out.print(alumno.getFaltas().get(contFaltas).getSesiones().getSesiones() + " /	");
 			}
 		}
 	

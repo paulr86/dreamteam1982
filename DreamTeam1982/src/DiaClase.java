@@ -14,7 +14,7 @@ public class DiaClase {
 	
 	public DiaClase(Fecha dia) {
 		this.dia = dia;
-		this.sesiones = sesiones;
+		this.sesiones = new Horario();
 	}
 	
 	// Getter y set de 'dia'
