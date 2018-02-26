@@ -179,9 +179,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			}
 			
 			
-			try {
-			Fecha fecha = new Fecha(dia, mes, agno);
-			
+			try {			
 			System.out.println("A continuación se listaran los alumnos, responda con Y en caso de asistencia o con N en caso de ausencia");
 			
 			
