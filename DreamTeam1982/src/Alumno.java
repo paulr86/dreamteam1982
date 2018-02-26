@@ -10,8 +10,8 @@ public class Alumno {
 	private String apellidos;
 	private String telefono;
 	private String email;
-	private ArrayList<DiaClase> faltas = new ArrayList<DiaClase>();
-	private ArrayList<Calificacion> notas = new ArrayList<Calificacion>();
+	private ArrayList<DiaClase> faltas;
+	private ArrayList<Calificacion> notas;
 
 	// Constructores
 

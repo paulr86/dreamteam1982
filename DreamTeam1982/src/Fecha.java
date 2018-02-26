@@ -14,7 +14,7 @@ public class Fecha {
 		// Si Año mayor 2015 comprobamos el mes
 		} else {
 			// Si el mes es incorrecto devuelve error
-			if (mes < 1 && mes < 12) {
+			if (mes < 1 && mes > 12) {
 				throw new Exception("El mes intorducido no es correcto, revise la fecha");
 
 			// INICIO 31 dias

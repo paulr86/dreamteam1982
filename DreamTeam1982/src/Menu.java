@@ -274,9 +274,22 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		try {
 		Fecha fecha = new Fecha(dia, mes, agno);
 		
-		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+//		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		
+		//Sacamos la posición del AL de la fecha a la que queremos acceder
 		
-		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		//Colocamos las faltas del dia completo
+		int posicion = buscarAlumno(lista, dni);
+		
+		Alumno tmp = lista.get(posicion);
+		
+		ArrayList<DiaClase> hola = tmp.getFaltas();
+		
+		int pepe = hola.indexOf(fecha);
+		
+		System.out.println(">" + pepe);
+		
+		//System.out.println(">>" + hola.get(0).getDia().getDia());
+		
+		//lista.get(buscarAlumno(lista,dni)).getFaltas().get(pepe).getSesiones().faltaDiaEntero();		//Colocamos las faltas del dia completo
 		
 		} catch(Exception ex){
 			System.out.println(ex.getMessage());
