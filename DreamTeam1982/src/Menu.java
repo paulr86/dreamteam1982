@@ -537,7 +537,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				
 			case 6:
 				do{
-					
+					darBajaAsignatura(alumnos);
 					
 				}while(repetirOpcion());
 				break;
@@ -551,6 +551,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			case 8:
 				do{
 					
+					listarCalificacionesDeAlumno(alumnos);
 					
 				}while(repetirOpcion());
 				break;
