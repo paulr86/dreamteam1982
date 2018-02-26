@@ -234,16 +234,16 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				}
 			
 			
-			try {
-			Fecha fecha = new Fecha(dia, mes, agno);
-			
-			int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
-			
-			lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		//Colocamos las faltas de la sesion
-			
-			} catch(Exception ex){
-				System.out.println(ex.getMessage());
-			}
+//			try {
+//			Fecha fecha = new Fecha(dia, mes, agno);
+//			
+//			int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		//Sacamos la posición del AL de la fecha a la que queremos acceder
+//			
+//			lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		//Colocamos las faltas de la sesion
+//			
+//			} catch(Exception ex){
+//				System.out.println(ex.getMessage());
+//			}
 		}
 
 		else {
@@ -277,15 +277,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 //		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(fecha);		
 		//Sacamos la posición del AL de la fecha a la que queremos acceder
 		
-		int posicion = buscarAlumno(lista, dni);
-		
-		Alumno tmp = lista.get(posicion);
-		
-		ArrayList<DiaClase> hola = tmp.getFaltas();
-		
-		int pepe = hola.indexOf(fecha);
-		
-		System.out.println(">" + pepe);
+//		int posicion = buscarAlumno(lista, dni);
+//		
+//		Alumno tmp = lista.get(posicion);
+//		
+//		ArrayList<DiaClase> hola = tmp.getFaltas();
+//		
+//		int pepe = hola.indexOf(fecha);
+//		
+//		System.out.println(">" + pepe);
 		
 		//System.out.println(">>" + hola.get(0).getDia().getDia());
 		
