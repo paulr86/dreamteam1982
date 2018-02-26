@@ -23,7 +23,7 @@ public class Horario {
 	}
 
 	// faltaHora (int sesion)
-	public boolean faltaHora(int sesion) {
+	public boolean faltaHora(int sesion) throws Exception{
 
 		try {
 			sesiones[sesion - 1] = 'F';

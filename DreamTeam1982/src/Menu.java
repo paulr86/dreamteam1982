@@ -254,7 +254,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	}
 
 
-	public static void faltaDia (ArrayList<Alumno>lista) { //ANtonio Megias
+	public static void faltaDia (ArrayList<Alumno>lista) throws Exception { //ANtonio Megias
 		Scanner entrada = new Scanner (System.in);
 		
 		
