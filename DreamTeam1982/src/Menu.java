@@ -284,22 +284,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		Alumno tmp = new Alumno(dni);
 		
 		// Creamos la falta sino existe
-		crearFalta(lista, fecha, tmp);
-		
-//		System.out.println("HOLA:" + buscarAlumno(lista,dni));
-		
-		EL PROBLEMA ESTA EN QUE NO HAY NINGUNA INSTANCIA DE FALTAS CREADAAAAA REVISARRRRR
+		crearFalta(lista, fecha, tmp);		
 
 		// Creamos un tmp de Falta para buscar la posicion de la fecha en el ArrayList
 		DiaClase tmpFalta = new DiaClase(fecha);
 				
 		//Sacamos la posición del AL de la fecha a la que queremos acceder
-		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(tmpFalta);	
-		
-//		System.out.println("Hola2: "+ posicion);
-//		
-//		System.out.println("TAMAÑO ARRAY ALUMNOS: " + lista.size());
-//		System.out.println("TAMAÑO ARRAY FALTAS: " + lista.get(0).getFaltas().size());
+		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(tmpFalta);
 		
 		//Colocamos las faltas del dia completo
 		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		
@@ -322,22 +313,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 		boolean resultado = false;
 		
-		DiaClase prueba = new DiaClase(fecha);
+		DiaClase faltaPasada = new DiaClase(fecha);
 		
 		// Buscamos posicion alumno
-		int posAlum = lista.indexOf(alumno);
-		
-		// Iterador
-		Iterator<DiaClase> iteratorClase = lista.get(posAlum).getFaltas().iterator();
-		
-		
-		while(iteratorClase.hasNext()){
-			// temporal para poder comparar
-			DiaClase tmpClase = lista.get(posAlum).getFaltas().get(0);
+		int posAlum = lista.indexOf(alumno);		
 			
-			if(tmpClase != prueba) {
-				lista.get(posAlum).getFaltas().add(prueba);				
-			} 			
+			// Si no se localiza la falta devolvemos true y añadimos la falta al array, si se localiza devolvemos false
+			if(lista.get(posAlum).getFaltas().indexOf(faltaPasada) != 1) {
+				lista.get(posAlum).getFaltas().add(faltaPasada);				
+			} 
 		}
 		
 		
