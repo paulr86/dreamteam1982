@@ -112,15 +112,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return existe;// Se devuelve la variable boolean.
 	}
 	
-	public static boolean hayAlumnos(ArrayList<Alumno> lista) {//Autor Antonio MEgias
-		boolean hay = false;
-		if(lista.size()!=0) {
-			hay = true;
-		}else {
-			hay = false;
-		}
-		return hay;
-	}
+
 	
 	public static void listarAlumnos(ArrayList<Alumno>lista) { //Autor: Antonio Megias
 		
@@ -160,7 +152,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		
 
-		if(hayAlumnos( lista) == true) {
+		if(lista.isEmpty() == true) {
 			System.out.println("Fecha:");
 			System.out.println("Día");
 			int dia = entrada.nextInt();
@@ -259,8 +251,9 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		System.out.println("DNI del alumno");			//DNI DEL ALUMNO
 		String dni = entrada.nextLine();
 
-		if(existeAlumno(dni, lista) == true) {			//Si existe el alumno hará el proceso
-		
+		if(existeAlumno(dni, lista) == false) {			//Si existe el alumno hará el proceso
+			throw new Exception("No existe alumno.");
+		}else{
 		System.out.println("Fecha:");
 		System.out.println("Día");
 		int dia = entrada.nextInt();
@@ -292,11 +285,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		} catch(Exception ex){
 			System.out.println(ex.getMessage());
 		}
-
-		}
 		
-		else {
-			System.out.println("No existe alumno");			//Si no existe alumno
 		}
 
 
@@ -500,7 +489,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				}while(repetirOpcion());
 				break;
 			case 3:
-				if(hayAlumnos(alumnos)== true) {
+				if(alumnos.isEmpty()== true) {
 					listarAlumnos(alumnos);
 				}else {
 					System.out.println("No hay alumnos");
