@@ -87,7 +87,7 @@ public class Fecha {
 	// Metodo imprime fecha
 	public boolean imprimeFecha () {
 		// Mostramos la fecha
-		System.out.println("Fecha: " + this.dia + "/" + this.mes + "/" + this.agno + "/");
+		System.out.print(this.dia + "/" + this.mes + "/" + this.agno);
 		return true;
 	}
 	
