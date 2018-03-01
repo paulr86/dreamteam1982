@@ -31,19 +31,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Autor: Pablo Romero Ruiz
-		int posicion = -1;
-		boolean terminado = false;
-		//		Este programa busca un alumno en un arraylist. Pide un ArrayList en el que buscar y un dni para buscar
-		//		al alumno. Devuelve la posicion en el ArrayList en la que se encuentra.
-		for(int i = 0; i<lista.size() && !terminado; i++){ //		Bucle que recorre el array.
-			if(lista.get(i).getDni().equals(dni)){//		Compara el dni del objeto alumno que va encontrando, con el dni
-												//			que le pasamos.
-				posicion = i;	//Deposita la posicion en la que los dos dni son iguales en una variable.
-			}
-		}
+	public static int buscarAlumno(ArrayList<Alumno> lista){ //Autor: Pablo Romero Ruiz
+		int posicion;
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Introduce el dni: ");
+		Alumno tmp = new Alumno(entrada.next());
 		
-		return posicion;//		Devolvemos la variable con la posicion.
+		posicion = lista.indexOf(tmp);
+						
+		return posicion;
 	}
 	
 	public static boolean darAlta(ArrayList<Alumno> lista) {		// Autor: Pablo Romero Ruiz
@@ -76,27 +72,29 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return resultado;// Devolvemos el boolean.
 	}
 	
-	public static boolean darBaja(ArrayList<Alumno> lista){//Autor: Pablo Romero Ruiz
+	public static void darBaja(ArrayList<Alumno> lista) throws Exception{//Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
-		boolean resultado = false;
-		String dni;
+//		String dni;
+//		
+//		//Metodo para dar baja a un alumno.
+//		
+//		System.out.println("Introduce el DNI del alumno a eliminar:");
+//		dni = entrada.next();
+//		
+//		//Pedimos el dni a traves de teclado en vez de argumento del metodo, para evitar codigo en el case.
+//		
+//		dni = dni.trim();	//Controlamos los espacios al principio y al final del dni.
+		int posicion = buscarAlumno(lista);
+		if(posicion == -1 )
+			throw new Exception("No existe el alumno.");
 		
-		//Metodo para dar baja a un alumno.
+		lista.remove(posicion);
 		
-		System.out.println("Introduce el DNI del alumno a eliminar:");
-		dni = entrada.next();
-		
-		//Pedimos el dni a traves de teclado en vez de argumento del metodo, para evitar codigo en el case.
-		
-		dni = dni.trim();	//Controlamos los espacios al principio y al final del dni.
-		
-		if(buscarAlumno(lista,dni) != -1){ //Ya que buscarAlumno devuelve un -1 si no encuentra el alumno,
-										//	lo usamos para cerciorarnos de que existe el alumno antes de borrarlo.
-			lista.remove(buscarAlumno(lista,dni)); //Una vez encontrado, lo borramos.
-			resultado = true; //Variable booleana para saber si ha funcionado el metodo.
-		}
-		
-		return resultado;// Devolvemos el boolean para informar si ha funcionado o no.
+//		if(buscarAlumno(lista,dni) != -1){ //Ya que buscarAlumno devuelve un -1 si no encuentra el alumno,
+//										//	lo usamos para cerciorarnos de que existe el alumno antes de borrarlo.
+//			lista.remove(buscarAlumno(lista,dni)); //Una vez encontrado, lo borramos.
+//			resultado = true; //Variable booleana para saber si ha funcionado el metodo.
+//		}
 	}
 	
 	public static boolean existeAlumno(String dni, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
@@ -127,9 +125,9 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		String dni, nota, asignatura;
 		Scanner entrada = new Scanner(System.in);
 		
-		System.out.println("Introducir el dni del alumno que quiere calificar");
-		dni = entrada.next();		//Pedimos dni
-		entrada.nextLine(); 		//Limpiando buffer
+//		System.out.println("Introducir el dni del alumno que quiere calificar");
+//		dni = entrada.next();		//Pedimos dni
+//		entrada.nextLine(); 		//Limpiando buffer
 		
 		System.out.println("Introducir la nota del alumno");
 		nota = entrada.next();		//Pedimos nota
@@ -139,7 +137,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		asignatura = entrada.next();		//Pedimos asignatura
 		entrada.nextLine(); 		//Limpiando buffer
 		
-		posicion = buscarAlumno(lista, dni);	//Conseguimos la posicion con el metodo buscarAlumno
+		posicion = buscarAlumno(lista);	//Conseguimos la posicion con el metodo buscarAlumno
 		
 		lista.get(posicion).ponerNotas(nota, asignatura);	//Sacamos el alumno y le ponemos la nota
 		
@@ -301,10 +299,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		int menu, posicion;
 		System.out.println("Introduce DNI del alumno a modificar: ");
 		dni = entrada.nextLine();
+		try{
+			posicion = buscarAlumno(lista);  //indica posicion del alumno del que posteriormente se va amodificar
+
 		
-		posicion = buscarAlumno(lista, dni);  //indica posicion del alumno del que posteriormente se va amodificar
-		
-		if (Menu.existeAlumno(dni,lista)== true) {		//Menú para elegir lo que quieres modificar y modificarlo.
+			//Menú para elegir lo que quieres modificar y modificarlo.
 			do {System.out.println("1 para Nombre"+"\n"+"2 para Apellidos"+"\n"+"3 para DNI"+"\n"+"4 para Telefono"+"\n"+"5 para e-mail"+"\n"+"6 SALIR");
 				menu=entrada.nextInt();
 				switch(menu) {
@@ -340,9 +339,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 					System.out.println("Opción no válida.");	
 				}	
 			}while(menu<6);
-		}else {
-			System.out.println("Alumno inexsistente");
+			
+		}catch(Exception ex){
+			System.out.println("No existe el alumno.");
 		}
+
 	}
 	
 	public static boolean matricularAlumnos(ArrayList<Alumno> lista, Alumno alumno, String nomAsignatura)  throws Exception { // Autor: David guindo
@@ -480,10 +481,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				break;
 			case 2:// Autor: Pablo Romero Ruiz
 				do{
-					if(darBaja(alumnos)){
-						System.out.println("Alumno eliminado correctamente.");
-					}else{
-						System.out.println("Error al eliminar alumno");
+//					if(darBaja(alumnos)){
+//						System.out.println("Alumno eliminado correctamente.");
+//					}else{
+//						System.out.println("Error al eliminar alumno");
+//					}
+					try{
+						darBaja(alumnos);
+					}catch(Exception ex){
+						System.out.println(ex.getMessage());
 					}
 					
 				}while(repetirOpcion());
