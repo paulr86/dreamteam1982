@@ -396,14 +396,17 @@ public class Menu { // Autor: Pablo Romero Ruiz
 
 
 
-	public static void darBajaAsignatura(ArrayList<Alumno>lista) { // Autor: Ã�lvaro Moya Pino
+	public static void darBajaAsignatura(ArrayList<Alumno>lista) throws Exception { // Autor: Ã�lvaro Moya Pino
 		Scanner entrada = new Scanner(System.in);
-		System.out.println("Introduce el DNI del alumno a dar de baja de la asignatura:");
-		String dni = entrada.next();
-		dni = dni.trim();
+//		System.out.println("Introduce el DNI del alumno a dar de baja de la asignatura:");
+//		String dni = entrada.next();
+//		dni = dni.trim();
 		
-		if(buscarAlumno(lista,dni) != -1){
-			int indiceAlumno = buscarAlumno(lista,dni);
+		int indiceAlumno = buscarAlumno(lista);
+		
+		if(indiceAlumno == -1){
+			throw new Exception("No se ha encontrado el alumno");
+		}else{
 			Alumno alumnoEncontrado = lista.get(indiceAlumno);
 			
 			System.out.println("Alumno encontrado, ahora escriba la asignatura de la que quiere darse de baja: ");
@@ -419,9 +422,6 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				System.out.println("El alumno introducido no cursa esa asignatura introducida");
 				darBajaAsignatura(lista);
 			}
-		}else {
-			System.out.println("Alumno no encontrado, por favor, escriba un dni vÃ¡lido: ");
-			darBajaAsignatura(lista);
 		}
 	}
 	
@@ -435,23 +435,27 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return -1;
 	}
 	
-	public static String listarCalificacionesDeAlumno(ArrayList<Alumno>lista) { // Autor: Ã�lvaro Moya Pino
+	public static String listarCalificacionesDeAlumno(ArrayList<Alumno>lista) throws Exception { // Autor: Ã�lvaro Moya Pino
 		Scanner entrada = new Scanner(System.in);
-		System.out.println("Introduce el DNI del alumno del que desea consultar las calificaciones:");
-		String dni = entrada.next();
-		dni = dni.trim();
-		System.out.println("listar asignaturas");
-		if(buscarAlumno(lista,dni) != -1){
-			int indiceAlumno = buscarAlumno(lista,dni);
+//		System.out.println("Introduce el DNI del alumno del que desea consultar las calificaciones:");
+//		String dni = entrada.next();
+//		dni = dni.trim();
+//		System.out.println("listar asignaturas");
+		int indiceAlumno = buscarAlumno(lista);
+		if(indiceAlumno == -1){
+			throw new Exception("No existe el alumno.");
+		}else{
+//			int indiceAlumno = buscarAlumno(lista,dni);
 			Alumno alumnoEncontrado = lista.get(indiceAlumno);
 			String listeDeCalificaciones = "El alumno " + alumnoEncontrado.getNombre() + " tiene las siguientes calificaciones ";
 			for(Calificacion calificacion: alumnoEncontrado.getNotas()) {
 				System.out.println(calificacion.getAsignatura() + ", tiene una nota de " + calificacion.getNota());
 			}
-		}else {
-			System.out.println("Alumno no encontrado, por favor, escriba un dni vÃ¡lido: ");
-			listarCalificacionesDeAlumno(lista);
 		}
+//		else {
+//			System.out.println("Alumno no encontrado, por favor, escriba un dni vÃ¡lido: ");
+//			listarCalificacionesDeAlumno(lista);
+//		}
 		
 		return "";
 	}
@@ -535,6 +539,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 						
 					} catch (Exception ex){
 						System.out.println(ex.getMessage());
+						break;
 					} 
 											
 					
@@ -543,8 +548,12 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				
 			case 6:
 				do{
-					darBajaAsignatura(alumnos);
-					
+					try{
+						darBajaAsignatura(alumnos);
+					}catch(Exception ex){
+						System.out.println(ex.getMessage());
+						break;
+					}
 				}while(repetirOpcion());
 				break;
 			case 7:	//Rubén Tijeras
@@ -556,9 +565,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				break;
 			case 8:
 				do{
-					
-					listarCalificacionesDeAlumno(alumnos);
-					
+					try{
+						listarCalificacionesDeAlumno(alumnos);
+					}catch(Exception ex){
+						System.out.println(ex.getMessage());
+					}
 				}while(repetirOpcion());
 				break;
 			case 9:
