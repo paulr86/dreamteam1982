@@ -31,17 +31,20 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	}
 	
-	public static int buscarAlumno(ArrayList<Alumno> lista, String dni){ //Autor: Pablo Romero Ruiz
+	public static int buscarAlumno(ArrayList<Alumno> lista){ //Autor: Pablo Romero Ruiz
+		
+		Scanner entrada = new Scanner(System.in);
 		int posicion = -1;
-		boolean terminado = false;
-		//		Este programa busca un alumno en un arraylist. Pide un ArrayList en el que buscar y un dni para buscar
-		//		al alumno. Devuelve la posicion en el ArrayList en la que se encuentra.
-		for(int i = 0; i<lista.size() && !terminado; i++){ //		Bucle que recorre el array.
-			if(lista.get(i).getDni().equals(dni)){//		Compara el dni del objeto alumno que va encontrando, con el dni
-												//			que le pasamos.
-				posicion = i;	//Deposita la posicion en la que los dos dni son iguales en una variable.
-			}
-		}
+		String dni;
+		
+		System.out.println("Introduce el dni del alumno:");
+		dni = entrada.next();
+		
+		dni = dni.trim();
+		
+		Alumno alumnoABuscar = new Alumno(dni);
+		
+		posicion = lista.indexOf(alumnoABuscar);
 		
 		return posicion;//		Devolvemos la variable con la posicion.
 	}
@@ -76,27 +79,22 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		return resultado;// Devolvemos el boolean.
 	}
 	
-	public static boolean darBaja(ArrayList<Alumno> lista){//Autor: Pablo Romero Ruiz
+	public static void darBaja(ArrayList<Alumno> lista) throws Exception {//Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
-		boolean resultado = false;
 		String dni;
 		
 		//Metodo para dar baja a un alumno.
 		
-		System.out.println("Introduce el DNI del alumno a eliminar:");
-		dni = entrada.next();
-		
 		//Pedimos el dni a traves de teclado en vez de argumento del metodo, para evitar codigo en el case.
 		
-		dni = dni.trim();	//Controlamos los espacios al principio y al final del dni.
+		int posicion = buscarAlumno(lista);
 		
-		if(buscarAlumno(lista,dni) != -1){ //Ya que buscarAlumno devuelve un -1 si no encuentra el alumno,
-										//	lo usamos para cerciorarnos de que existe el alumno antes de borrarlo.
-			lista.remove(buscarAlumno(lista,dni)); //Una vez encontrado, lo borramos.
-			resultado = true; //Variable booleana para saber si ha funcionado el metodo.
+		if(posicion == -1){
+			throw new Exception("No se ha encontrado el alumno.");
+		}else{
+			lista.remove(buscarAlumno(lista));
 		}
-		
-		return resultado;// Devolvemos el boolean para informar si ha funcionado o no.
+	
 	}
 	
 	public static boolean existeAlumno(String dni, ArrayList<Alumno> lista) {// Autor: Pablo Romero Ruiz
@@ -122,12 +120,8 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	
 	public static void introducirCalificacion(ArrayList<Alumno>lista) {		//Rubén Tijeras
 		int posicion;
-		String dni, nota, asignatura;
+		String nota, asignatura;
 		Scanner entrada = new Scanner(System.in);
-		
-		System.out.println("Introducir el dni del alumno que quiere calificar");
-		dni = entrada.next();		//Pedimos dni
-		entrada.nextLine(); 		//Limpiando buffer
 		
 		System.out.println("Introducir la nota del alumno");
 		nota = entrada.next();		//Pedimos nota
@@ -137,7 +131,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		asignatura = entrada.next();		//Pedimos asignatura
 		entrada.nextLine(); 		//Limpiando buffer
 		
-		posicion = buscarAlumno(lista, dni);	//Conseguimos la posicion con el metodo buscarAlumno
+		posicion = buscarAlumno(lista);	//Conseguimos la posicion con el metodo buscarAlumno
 		
 		lista.get(posicion).ponerNotas(nota, asignatura);	//Sacamos el alumno y le ponemos la nota
 		
@@ -199,11 +193,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			// Creamos un tmp de Falta para buscar la posicion de la fecha en el ArrayList
 			DiaClase tmpFalta = new DiaClase(fecha);
 					
+			int posicionAlumno = buscarAlumno(lista);
+			
 			//Sacamos la posición del AL de la fecha a la que queremos acceder
-			int posicion = lista.get(buscarAlumno(lista,lista.get(n).getDni())).getFaltas().indexOf(tmpFalta);
+			int posicion = lista.get(posicionAlumno).getFaltas().indexOf(tmpFalta);
 			
 			//Colocamos las faltas del dia completo
-			lista.get(buscarAlumno(lista,lista.get(n).getDni())).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		
+			lista.get(posicionAlumno).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		
 			
 			System.out.println("Nombre: "+lista.get(n).getNombre() +". Apellidos: "+ lista.get(n).getApellidos());
 			String respuesta = entrada.nextLine();
@@ -227,11 +223,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner (System.in);
 		
 		//DNI DEL ALUMNO
-		System.out.println("DNI del alumno");			
-		String dni = entrada.nextLine();
+//		System.out.println("DNI del alumno");			
+//		String dni = entrada.nextLine();
 
+		int posicionAlumno = buscarAlumno(lista);
+		
 		//Si existe el alumno hará el proceso
-		if(existeAlumno(dni, lista) == true) {			
+		if(posicionAlumno != -1) {			
 		
 			//Pedimos fecha y sesion comprobamos en el trycatch que sea correcta
 			System.out.println("Fecha:");
@@ -253,7 +251,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			try {
 				// Creamos un objeto fecha y un tmp de alumno para pasar al metodo
 				Fecha fecha = new Fecha(dia, mes, agno);
-				Alumno tmpAlm = new Alumno(dni);
+				Alumno tmpAlm = lista.get(posicionAlumno);
 				
 				// Creamos la falta sino existe
 				crearFalta(lista, fecha, tmpAlm);		
@@ -261,11 +259,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				// Creamos un tmp de Falta para buscar la posicion de la fecha en el ArrayList
 				DiaClase tmpFalta = new DiaClase(fecha);
 						
+				
+				
 				//Sacamos la posición del AL de la fecha a la que queremos acceder
-				int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(tmpFalta);
+				int posicion = lista.get(posicionAlumno).getFaltas().indexOf(tmpFalta);
 				
 				//Colocamos las faltas del dia completo
-				lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		
+				lista.get(posicionAlumno).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		
 			
 			} catch(Exception ex) {
 				System.out.println(ex.getMessage());
@@ -282,10 +282,12 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner (System.in);
 		
 		
-		System.out.println("DNI del alumno");			//DNI DEL ALUMNO
-		String dni = entrada.nextLine();
+//		System.out.println("DNI del alumno");			//DNI DEL ALUMNO
+//		String dni = entrada.nextLine();
 
-		if(existeAlumno(dni, lista) == false) {			//Si existe el alumno hará el proceso
+		int posicionAlumno = buscarAlumno(lista);
+		
+		if(posicionAlumno == -1) {			//Si existe el alumno hará el proceso
 			throw new Exception("No existe alumno.");
 		}else{
 		System.out.println("Fecha:");
@@ -299,7 +301,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		try {
 			// Creamos un objeto fecha y un tmp de alumno para pasar al metodo
 		Fecha fecha = new Fecha(dia, mes, agno);
-		Alumno tmpAlm = new Alumno(dni);
+		Alumno tmpAlm = lista.get(posicionAlumno);
 		
 
 		// Creamos la falta sino existe
@@ -309,10 +311,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		DiaClase tmpFalta = new DiaClase(fecha);
 				
 		//Sacamos la posición del AL de la fecha a la que queremos acceder
-		int posicion = lista.get(buscarAlumno(lista,dni)).getFaltas().indexOf(tmpFalta);
+		int posicion = lista.get(posicionAlumno).getFaltas().indexOf(tmpFalta);
 		
 		//Colocamos las faltas del dia completo
-		lista.get(buscarAlumno(lista,dni)).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		
+		lista.get(posicionAlumno).getFaltas().get(posicion).getSesiones().faltaDiaEntero();		
 		
 		} catch(Exception ex){
 			System.out.println(ex.getMessage());
@@ -350,14 +352,16 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 	public static void modificarAlumno(ArrayList<Alumno>lista) {//Autor Antonio Megias 
 		Scanner entrada = new Scanner ( System.in);
-		String dni;
-		int menu, posicion;
-		System.out.println("Introduce DNI del alumno a modificar: ");
-		dni = entrada.nextLine();
+//		String dni;
+		int menu;
+//		System.out.println("Introduce DNI del alumno a modificar: ");
+//		dni = entrada.nextLine();
 		
-		posicion = buscarAlumno(lista, dni);  //indica posicion del alumno del que posteriormente se va amodificar
+		int posicion = buscarAlumno(lista);
 		
-		if (Menu.existeAlumno(dni,lista)== true) {		//Menú para elegir lo que quieres modificar y modificarlo.
+//		posicion = buscarAlumno(lista, dni);  //indica posicion del alumno del que posteriormente se va amodificar
+		
+		if (posicion != -1) {		//Menú para elegir lo que quieres modificar y modificarlo.
 			do {System.out.println("1 para Nombre"+"\n"+"2 para Apellidos"+"\n"+"3 para DNI"+"\n"+"4 para Telefono"+"\n"+"5 para e-mail"+"\n"+"6 SALIR");
 				menu=entrada.nextInt();
 				switch(menu) {
@@ -449,12 +453,14 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	
 	public static void darBajaAsignatura(ArrayList<Alumno>lista) { // Autor: Ã�lvaro Moya Pino
 		Scanner entrada = new Scanner(System.in);
-		System.out.println("Introduce el DNI del alumno a dar de baja de la asignatura:");
-		String dni = entrada.next();
-		dni = dni.trim();
+//		System.out.println("Introduce el DNI del alumno a dar de baja de la asignatura:");
+//		String dni = entrada.next();
+//		dni = dni.trim();
 		
-		if(buscarAlumno(lista,dni) != -1){
-			int indiceAlumno = buscarAlumno(lista,dni);
+		int indiceAlumno = buscarAlumno(lista);
+		
+		if(indiceAlumno != -1){
+//			int indiceAlumno = buscarAlumno(lista,dni);
 			Alumno alumnoEncontrado = lista.get(indiceAlumno);
 			
 			System.out.println("Alumno encontrado, ahora escriba la asignatura de la que quiere darse de baja: ");
@@ -488,12 +494,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	
 	public static String listarCalificacionesDeAlumno(ArrayList<Alumno>lista) { // Autor: Ã�lvaro Moya Pino
 		Scanner entrada = new Scanner(System.in);
-		System.out.println("Introduce el DNI del alumno del que desea consultar las calificaciones:");
-		String dni = entrada.next();
-		dni = dni.trim();
+//		System.out.println("Introduce el DNI del alumno del que desea consultar las calificaciones:");
+//		String dni = entrada.next();
+//		dni = dni.trim();
+		
+		int indiceAlumno = buscarAlumno(lista);
+		
 		System.out.println("listar asignaturas");
-		if(buscarAlumno(lista,dni) != -1){
-			int indiceAlumno = buscarAlumno(lista,dni);
+		if(indiceAlumno != -1){
+//			int indiceAlumno = buscarAlumno(lista,dni);
 			Alumno alumnoEncontrado = lista.get(indiceAlumno);
 			String listeDeCalificaciones = "El alumno " + alumnoEncontrado.getNombre() + " tiene las siguientes calificaciones ";
 			for(Calificacion calificacion: alumnoEncontrado.getNotas()) {
@@ -532,16 +541,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 				break;
 			case 2:// Autor: Pablo Romero Ruiz
 				do{
-					if(darBaja(alumnos)){
-						System.out.println("Alumno eliminado correctamente.");
-					}else{
-						System.out.println("Error al eliminar alumno");
+					try{
+						darBaja(alumnos);
+					}catch(Exception ex){
+						System.out.println(ex.getMessage());
 					}
-					
 				}while(repetirOpcion());
 				break;
 			case 3:
-				if(alumnos.isEmpty()== true) {
+				if(alumnos.isEmpty() != true) {
 					listarAlumnos(alumnos);
 				}else {
 					System.out.println("No hay alumnos");
