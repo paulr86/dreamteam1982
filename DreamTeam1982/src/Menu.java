@@ -190,6 +190,15 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			// Creamos la falta sino existe
 			crearFalta(lista, fecha, lista.get(n));	
 			
+			// Creamos un tmp de Falta para buscar la posicion de la fecha en el ArrayList
+			DiaClase tmpFalta = new DiaClase(fecha);
+					
+			//Sacamos la posición del AL de la fecha a la que queremos acceder
+			int posicion = lista.get(buscarAlumno(lista,lista.get(n).getDni())).getFaltas().indexOf(tmpFalta);
+			
+			//Colocamos las faltas del dia completo
+			lista.get(buscarAlumno(lista,lista.get(n).getDni())).getFaltas().get(posicion).getSesiones().faltaHora(sesion);		
+			
 			System.out.println("Nombre: "+lista.get(n).getNombre() +". Apellidos: "+ lista.get(n).getApellidos());
 			String respuesta = entrada.nextLine();
 			
