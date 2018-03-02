@@ -91,12 +91,12 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		// Pedimos el dni a traves de teclado en vez de argumento del metodo, para
 		// evitar codigo en el case.
 
-		int posicion = buscarAlumno(lista);
+		int posicion = buscarAlumno(lista); // Pedimos el dni y buscamos el alumno
 
-		if (posicion == -1) {
-			throw new Exception("No se ha encontrado el alumno.");
-		} else {
-			lista.remove(buscarAlumno(lista));
+		if (posicion == -1) { //Si no existe el alumno
+			throw new Exception("No se ha encontrado el alumno."); //Tiramos una excepcion.
+		} else { //Si existe
+			lista.remove(buscarAlumno(lista)); //Lo borramos del AL.
 		}
 
 	}
