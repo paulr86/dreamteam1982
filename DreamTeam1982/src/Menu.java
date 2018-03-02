@@ -141,7 +141,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		lista.get(posicion).ponerNotas(nota, asignatura);	//Sacamos el alumno y le ponemos la nota
 		
-		System.out.println(lista.get(posicion).getNotas());		
+				
 	}
 	
 	public static void pasarLista(ArrayList<Alumno>lista ) throws Exception { 		//Rubén Tijeras
@@ -166,13 +166,13 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			int sesion = entrada.nextInt();
 			
 			if(sesion <1 || sesion > 7) {
-				throw new Exception("Sesion incorrecta, valores entre 1 y 6");
+				throw new Exception("Sesion incorrecta, valores entre 1 y 6");		//Filtramos la sesion para que sea correta
 			}
 			
 			
 			try {
 				
-				Fecha fecha = new Fecha(dia, mes, agno);
+				Fecha fecha = new Fecha(dia, mes, agno);		//Creamos una nueva fecha
 				
 				
 
@@ -182,7 +182,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			
 			
 
-			entrada.nextLine();
+			entrada.nextLine();		//Limpiamos el buffer
 		
 		for(int n = 0; n < lista.size(); n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
 						
