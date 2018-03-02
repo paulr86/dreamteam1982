@@ -405,13 +405,19 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		// Localizamos al alumno
 		int posicion = lista.indexOf(alumno);
 		
+		// Creamos un tmpCalif para saber si el alumno ya esta matriculado y si es assi devolvemos una excepcion
+		Calificacion tmpCalif = new Calificacion(nomAsignatura);
+		if(lista.get(posicion).getNotas().indexOf(tmpCalif) != -1 ) {
+			throw new Exception("El alumno ya esta matriculado de esa asignatura");
+		}
+		
 		// Si el alumno no existe (-1) devolvemos error
 		if (posicion == -1) {
 			throw new Exception("ERROR: El alumno intorducido no ha sido dado de alta");
 		}
 		
 		// Si existe lo damos de alta en la asignatura que nos introdujo el usuario y devolvemos true
-		alumno.ponerNotas("NE", nomAsignatura);
+		lista.get(posicion).ponerNotas("NE", nomAsignatura);
 		matriculado = true;
 				
 		 // Devolvemos el estado de matricula
