@@ -168,7 +168,14 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			}
 			
 			
-			try {			
+			try {
+				
+				Fecha fecha = new Fecha(dia, mes, agno);
+				
+				
+
+				
+				
 			System.out.println("A continuación se listaran los alumnos, responda con Y en caso de asistencia o con N en caso de ausencia");
 			
 			
@@ -178,6 +185,8 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		for(int n = 0; n < lista.size(); n++) {		//Bucle que saca toda la lista y en caso de respuesta afirmativa le coloca la falta
 						
 			
+			// Creamos la falta sino existe
+			crearFalta(lista, fecha, lista.get(n));	
 			
 			System.out.println("Nombre: "+lista.get(n).getNombre() +". Apellidos: "+ lista.get(n).getApellidos());
 			String respuesta = entrada.nextLine();
