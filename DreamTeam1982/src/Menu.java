@@ -22,7 +22,7 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		opc = Character.toUpperCase(entrada.next().charAt(0));
 		// Método estático para pasar un carácter a mayúsculas, ya que
 		// el usuario va a introducir o mayúsculas o minúsculas.
-		if (opc == 'Y') {
+		if (opc == 'Y') { //Si introduce una 'Y', pasa a true el boolean.
 			repetir = true;
 		}
 
@@ -33,30 +33,31 @@ public class Menu { // Autor: Pablo Romero Ruiz
 	public static int buscarAlumno(ArrayList<Alumno> lista) { // Autor: Pablo Romero Ruiz
 
 		Scanner entrada = new Scanner(System.in);
-		int posicion = -1;
+		int posicion = -1; //Usa -1 por defecto en caso de que no lo encuentre, que lo devuelva indicando que no lo ha encontrado.
 		String dni;
 
-		System.out.println("Introduce el dni del alumno:");
+		System.out.println("Introduce el dni del alumno:");	//Pide el dni del alumno, ya que es el atributo que distingue un alumno de otro.
 		dni = entrada.next();
 
-		dni = dni.trim();
+		dni = dni.trim(); // En caso de que el usuario haya metido espacios accidentales al final y al principio del dni.
 
-		Alumno alumnoABuscar = new Alumno(dni);
+		Alumno alumnoABuscar = new Alumno(dni); // Se crea un alumno temporal, que pasaremos a indexOf para obtener la posicion del alumno con ese dni en el AL.
 
-		posicion = lista.indexOf(alumnoABuscar);
+		posicion = lista.indexOf(alumnoABuscar); // Se busca ese alumno y se obtiene su posicion.
 
 		return posicion;// Devolvemos la variable con la posicion.
 	}
 
 	// Crea nuevo alumno en el Array List de Alumnos
-	public static boolean darAlta(ArrayList<Alumno> lista) { // Autor: Pablo Romero Ruiz
+	public static void darAlta(ArrayList<Alumno> lista) throws Exception { // Autor: Pablo Romero Ruiz
 		Scanner entrada = new Scanner(System.in);
 
-		boolean resultado = false;
 		String dni;
 		String nombre;
 		String apellidos;
 
+		// Pedimos los datos para pasar al constructor de Alumno.
+		
 		System.out.println("Introduce el nombre del alumno:");
 		nombre = entrada.nextLine();
 
@@ -70,14 +71,14 @@ public class Menu { // Autor: Pablo Romero Ruiz
 							// por teclado.
 		// Así evitamos que haya diferencias de caractéres por espacios.
 
-		Alumno alumno = new Alumno(dni, nombre, apellidos);
+		Alumno alumno = new Alumno(dni, nombre, apellidos); // Creamos el alumno.
 
-		if (!existeAlumno(alumno.getDni(), lista)) { // Comprobamos que no existe el alumno antes de introducirlo.
+		if (existeAlumno(alumno.getDni(), lista)) { // Comprobamos que no existe el alumno antes de introducirlo.
+			throw new Exception("El alumno que vas a introducir ya existe.");
+		}else{
 			lista.add(alumno);// Lo introducimos en el arraylist.
-			resultado = true;// Cambiamos la variable boolean para devolver que ha funcionado el metodo.
 		}
 
-		return resultado;// Devolvemos el boolean.
 	}
 
 	// Elimina alumno del Array List de Alumnos
@@ -554,10 +555,10 @@ public class Menu { // Autor: Pablo Romero Ruiz
 			switch (opcion) {
 			case 1:// Autor: Pablo Romero Ruiz
 				do {
-					if (darAlta(alumnos)) {
-						System.out.println("Alumno introducido correctamente.");
-					} else {
-						System.out.println("No se ha introducido correctamente.");
+					try{
+						darAlta(alumnos);
+					}catch(Exception ex){
+						System.out.println(ex.getMessage());
 					}
 				} while (repetirOpcion());
 				break;
