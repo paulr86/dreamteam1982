@@ -153,6 +153,8 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 
 		if(lista.isEmpty() == true) {
+			throw new Exception("Esta vacio");
+		}else{
 			System.out.println("Fecha:");
 			System.out.println("Día");
 			int dia = entrada.nextInt();
