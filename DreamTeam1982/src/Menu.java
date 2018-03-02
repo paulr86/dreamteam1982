@@ -141,7 +141,11 @@ public class Menu { // Autor: Pablo Romero Ruiz
 		
 		lista.get(posicion).ponerNotas(nota, asignatura);	//Sacamos el alumno y le ponemos la nota
 		
-		System.out.println(lista.get(posicion).getNotas());		
+		System.out.println("Alumno: "+lista.get(posicion).getNombre());
+		System.out.println("Asignatura: "+asignatura);
+		System.out.println("Calificación: "+nota);
+		System.out.print("\n");
+		
 	}
 	
 	public static void pasarLista(ArrayList<Alumno>lista ) throws Exception { 		//Rubén Tijeras
